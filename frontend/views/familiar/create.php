@@ -16,7 +16,6 @@ $this->params['tittle'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'enc'=>$enc,
          'modelPersonaFamiliar'=>$modelPersonaFamiliar,
         
     ]) ?>

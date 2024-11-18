@@ -38,7 +38,7 @@ use yii\helpers\Html;
         </div>
         <div class="col-lg-3" >
                 <?= $form->field($modelPreIntel, 'categoria_docente')->widget(Select2::className(), [
-                     'data'=> [3=>'Ninguno',
+                     'data'=> [0=>'Ninguno',
                                1=>'Profesor Auxialiar',
                                2=>'Profesor Titular',
 

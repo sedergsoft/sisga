@@ -86,7 +86,7 @@ class Cuadro extends \yii\db\ActiveRecord
             [['Lugar_nacimiento', 'provinciaid', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'trayectoria_militarid', 'vehiculo', 'arma', 'ingresos_monetarios', 'beneficio_ingreso', 'trayectoria_militarid','reserva_cuadro', 'saludid'], 'integer'],
             [['estatura', 'peso'], 'number'],
             [['fecha_inicio_cargo'], 'safe'],
-           [['personaCI'], 'string', 'min'=>11,'max' => 11,],
+            [['personaCI'], 'string', 'min'=>11,'max' => 11,],
             ['personaCI', 'ValidarCI'],
             [['telefono',], 'string', 'min'=>6,'max' => 12],
             [['ciudadania', 'color_piel', 'color_ojos', 'color_pelo',  'email', 'ubicacion_tiempo_guerra', 'foto'], 'string', 'max' => 255],

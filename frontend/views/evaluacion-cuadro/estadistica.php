@@ -36,23 +36,23 @@ $this->params['tittle'][] = $this->title;
         <tbody>
              <tr>
                 <td>Total de cargos de Cuadro</td>
-                <td><?php print_r($modelplantilla?$modelplantilla['cant_cuadros']:'0');?></td>
+                <td><?php print_r($modelplantilla['cant_cuadros']);?></td>
                 <td></td>
             </tr> 
              <tr>
                 <td>Cargos de Cuadros Cubiertos</td>
-                <td><?php print_r($modelplantilla?$modelplantilla['cuadros_cubierta']:'0');?></td>
-                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla?$modelplantilla['cant_cuadros']:'0',$modelplantilla?$modelplantilla['cuadros_cubierta']:'0'));?></td>
+                <td><?php print_r($modelplantilla['cuadros_cubierta']);?></td>
+                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla['cant_cuadros'],$modelplantilla['cuadros_cubierta']));?></td>
             </tr> 
              <tr>
                 <td>Cuadros a evaluar</td>
-                <td><?php print_r($modelplantilla?$modelplantilla['cuadros_cubierta']:0);?></td>
-                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla?$modelplantilla['cant_cuadros']:0,$modelplantilla?$modelplantilla['cuadros_cubierta']:0));?></td>
+                <td><?php print_r($modelplantilla['cuadros_cubierta']);?></td>
+                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla['cant_cuadros'],$modelplantilla['cuadros_cubierta']));?></td>
             </tr> 
              <tr>
                 <td>Cuadros Evaluados</td>
-                <td><?php print_r($modelplantilla?$modelplantilla['cuadros_cubierta']:0);?></td>
-                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla?$modelplantilla['cant_cuadros']:0,$modelplantilla?$modelplantilla['cuadros_cubierta']:0));?></td>
+                <td><?php print_r($modelplantilla['cuadros_cubierta']);?></td>
+                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla['cant_cuadros'],$modelplantilla['cuadros_cubierta']));?></td>
             </tr> 
             
             

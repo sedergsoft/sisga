@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ProyeccionSearchPlanEvaluacion */
@@ -91,32 +90,7 @@ $this->params['tittle'][] = $this->title;
            ],
             //'observaciones',
 
-            ['class' => 'yii\grid\ActionColumn',
-             // 'width' => '50px',  
-                
-                     'template' => '{view} ',
-                'buttons' => [
-                    
-                     'view' => function ($url, $data){
-               
-                           
-                     return Html::a(
-                                '<span class = "glyphicon glyphicon-eye-open";></span',
-                                $url = Url::toRoute(['view', 'id' => $data['id']]),
-                                                                            
-                                                                             [
-                                                                                 'title' => 'Ver Plan de Evaluación ',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
-                                                                               
-                                                                             ] 
-                                 ); 
-              
-                          },
-                                  ]
-                
-            
-                ],
+            ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
         ],
     ]); ?>
 </div>

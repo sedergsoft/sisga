@@ -5,9 +5,6 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Familiar;
 use frontend\models\FamiliarSearch;
-use frontend\models\Persona;
-use kartik\alert\Alert;
-use kartik\alert\AlertBlock;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -78,29 +75,12 @@ class FamiliarController extends Controller
          $model->sancionado = 0;
          $model->residenteExterior = 0;
          $model->viaje = 0;
-        // return print_r($modelPersonaFamiliar->validate());
-         //return print_r($model->errors);
-         $enc = Persona::find()->where(['CI'=>$modelPersonaFamiliar->CI])->one();
-         if($enc)
-         {
-            Yii::$app->session->setFlash('existe');
-            $mensaje = 'El familiar ha sido Agregado correctamente';
-            $style = 'alert-success';
-            return $this->render('create', [
-                'model' => $model,
-                'enc'=>$enc,
-                'cuadro'=>$cuadro, 
-                'modelPersonaFamiliar'=>$modelPersonaFamiliar,
-                
-            ]);
-
-         }
-        // $modelPersonaFamiliar->validate();
-        // return print_r($modelPersonaFamiliar->errors);
+        // return print_r($model->validate());
+            
          if($modelPersonaFamiliar->save())
          {
-           //  return print_r($model->id);
          $model->save();
+       //  return print_r($model->id);
          $modelcuadoFamiliar = new \frontend\models\CuadroFamiliar();
          $modelcuadoFamiliar->cuadroid = $cuadroid;
          $modelcuadoFamiliar->familiarid = $model->id;
@@ -117,7 +97,6 @@ class FamiliarController extends Controller
          }else{
               return $this->render('create', [
             'model' => $model,
-            'enc'=>$enc,
             'cuadro'=>$cuadro, 
             'modelPersonaFamiliar'=>$modelPersonaFamiliar,
             

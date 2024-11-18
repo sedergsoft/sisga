@@ -545,26 +545,15 @@ $this->params['tittle'][]= $this->title;
                             'update'=> function($url,$model)
                                         {
                                        
-                                                            
-                                            // return Html::a('<i class="fa fa-eye"></i>', 
-                                            // ['view','id'=>$data['id']],
-                                            
-                                            // ['class' => 'btn btn-info btn-xs',
-                                            //   'title' => 'Ver'  
-                                            //     ]);
-                                            
-                                                                return Html::a(
-                                                                            '<i class = "glyphicon glyphicon-refresh"></i>',
+                                                            return Html::a(
+                                                                            '<span class = "glyphicon glyphicon-refresh" style="right: -20px;"></span',
                                                                             $url = Url::toRoute(['enfermedad/update', 'id' => $model->enfermedadid,'saludid'=>$model->salud->id]),
                                                                             
                                                                              [
-                                                                                'class' => 'btn btn-primary btn-xs', 
-                                                                                'style'=>"margin-left: 10px",
-                                                                                'title' => 'Actualizar enfermedades ',
+                                                                                 'title' => 'Actualizar enfermedades ',
                                                                                  'data-confirm'=> 'Esta seguro que desea actualizar las enfermedades'
                                                                                
                                                                              ]
-                                                                             
                                                                             );    
                                                            },
                        'delete'=> function($url,$model)
@@ -577,9 +566,7 @@ $this->params['tittle'][]= $this->title;
                                                                              
                                                                                  
                                                                                  [
-                                                                                    'class' => 'btn btn-danger btn-xs', 
                                                                                    'title'=> 'Eliminar enfermedad',
-                                                                                   'style'=>"margin-left: 10px",
                                                                                'data' => [
                                                                                 'confirm' => Yii::t('app', 'Esta seguro que desea Eliminar esta enfermedad.'),
                                                                                 'method' => 'post',
@@ -629,9 +616,8 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar trayectoria laboral ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar la trayectoria',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar la trayectoria'
+                                                                               
                                                                              ]
                                                                             );    
                                                            },
@@ -684,9 +670,8 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Lugar de Residencia ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este lugar de residencia',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este lugar de residencia'
+                                                                               
                                                                              ]
                                                                             );    
                                                            },
@@ -730,9 +715,7 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Centro de Estudios ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este centro de estudios',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este centro de estudios'
                                                                                
                                                                              ]
                                                                             );    
@@ -779,9 +762,7 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Escuelas Políticas Cursadas ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta Escuela Política',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta Escuela Política'
                                                                                
                                                                              ]
                                                                             );    
@@ -907,9 +888,7 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Escuelas Políticas Cursadas ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta Escuela Política',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta Escuela Política'
                                                                                
                                                                              ]
                                                                             );    
@@ -956,9 +935,8 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar viajes al Exterior',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este viaje',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este viaje'
+                                                                               
                                                                              ]
                                                                             );    
                                                            },
@@ -1002,9 +980,7 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Escuelas Políticas Cursadas ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta información',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta información'
                                                                                
                                                                              ]
                                                                             );    
@@ -1051,9 +1027,7 @@ $this->params['tittle'][]= $this->title;
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Sanciones ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta sanción',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta sanción'
                                                                                
                                                                              ]
                                                                             );    
@@ -1094,15 +1068,13 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-trash"></span',
+                                                                            '<span class = "glyphicon glyphicon-trash" style="right: -40px;"></span',
                                                                             $url = Url::toRoute(['vehiculo/delete', 'id' => $model->id,'cuadroid'=>$model->cuadroid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Eliminar Vehículo ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea eliminar este vehículo',
+                                                                                 'title' => 'Editar Vehículo ',
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este vehículo',
                                                                                  'method'=>'POST',
-                                                                                 'class' => 'btn btn-danger btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
                                                                              ]
                                                                             );    
                                                            },
@@ -1110,15 +1082,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit"></span',
+                                                                            '<span class = "glyphicon glyphicon-edit" style="right: -20px;"></span',
                                                                             $url = Url::toRoute(['vehiculo/update', 'id' => $model->id]),
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Vehículo ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este vehículo',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
-                                                                                 
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este vehículo'
                                                                                
                                                                              ]
                                                                             );    
@@ -1158,15 +1127,13 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-trash" ></span',
+                                                                            '<span class = "glyphicon glyphicon-trash" style="right: -40px;"></span',
                                                                             $url = Url::toRoute(['armas/delete', 'id' => $model->id,'cuadroid'=>$model->cuadroid]),
                                                                             
                                                                              [
                                                                                  'title' => 'Eliminar Arma ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Elimimar esta Arma',
                                                                                  'method'=>'POST',
-                                                                                 'class' => 'btn btn-danger btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
                                                                              ]
                                                                             );    
                                                            },
@@ -1174,14 +1141,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit"></span',
+                                                                            '<span class = "glyphicon glyphicon-edit" style="right: -20px;"></span',
                                                                             $url = Url::toRoute(['armas/update', 'id' => $model->id]),
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Arma ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta Arma',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea Editar esta Arma'
                                                                                
                                                                              ]
                                                                             );    
@@ -1260,15 +1225,13 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit"></span',
+                                                                            '<span class = "glyphicon glyphicon-edit" style="right: 0px;"></span',
                                                                             $url = Url::toRoute(['familiar/update', 'id' => $model->familiarid,]),
                                                                             
                                                                              [
                                                                                  'title' => 'Editar Familiar ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este familiar',
                                                                                  'method'=>'post',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
                                                                              ]
                                                                             );    
                                                            },
@@ -1276,15 +1239,13 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-plane"></span',
+                                                                            '<span class = "glyphicon glyphicon-plane" style="left: 10px;"></span',
                                                                             $url = Url::toRoute(['viajes-familiares/create', 'familiarid' => $model->familiarid,]),
                                                                             
                                                                              [
                                                                                  'title' => 'Agregar viaje ',
                                                                                  'data-confirm'=> 'Esta seguro que desea agregar un viaje a este familiar?',
                                                                                  'method'=>'post',
-                                                                                 'class' => 'btn btn-success btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
                                                                              ]
                                                                             );    
                                                            },
@@ -1292,15 +1253,13 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-exclamation-sign"></span',
+                                                                            '<span class = "glyphicon glyphicon-exclamation-sign" style="left: 20px;"></span',
                                                                             $url = Url::toRoute(['sancionados/create', 'familiarid' => $model->familiarid,]),
                                                                             
                                                                              [
                                                                                  'title' => 'Agregar Sanción ',
                                                                                  'data-confirm'=> 'Esta seguro que desea agregar una sanción a este familiar?',
                                                                                  'method'=>'post',
-                                                                                 'class' => 'btn btn-warning btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
                                                                              ]
                                                                             );    
                                                            },
@@ -1308,26 +1267,22 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-home"></span',
+                                                                            '<span class = "glyphicon glyphicon-home" style="left: 30px;"></span',
                                                                             $url = Url::toRoute(['familiares-exterior/create', 'familiarid' => $model->familiarid,]),
                                                                             
                                                                              [
                                                                                  'title' => 'Agregar Residencia Exterior ',
                                                                                  'data-confirm'=> 'Esta seguro que desea agregar una Residencia en el exterior a este familiar?',
                                                                                  'method'=>'post',
-                                                                                 'class' => 'btn btn-info btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
                                                                              ]
                                                                             );    
                                                            },
                             'delete'=> function($url,$model)
                                         {
                                        
-                                                            return Html::a( '<span class = "glyphicon glyphicon-trash"></span',
+                                                            return Html::a( '<span class = "glyphicon glyphicon-trash" style="left: 40px;"></span',
                                                                             ['familiar/delete', 'id' => $model->familiarid], [
                                                                                    'title'=> 'Eliminar Familiar',
-                                                                                   'class' => 'btn btn-danger btn-xs', 
-                                                                                   'style'=>"margin-left: 10px",
                                                                                'data' => [
                                                                                 'confirm' => Yii::t('app', 'Esta seguro que desea eliminar esta persona'),
                                                                                 'method' => 'post',
@@ -1494,19 +1449,15 @@ $this->params['tittle'][]= $this->title;
                                                                                  'title' => 'Editar Ingreso Montario ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este Ingreso Montario',
                                                                                  'method'=>'post',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
                                                                              ]
                                                                             );    
                                                            },
                  'delete'=> function($url,$model)
                                         {
                                        
-                                                            return Html::a( '<span class = "glyphicon glyphicon-trash"></span',
+                                                            return Html::a( '<span class = "glyphicon glyphicon-trash" style="left: 40px;"></span',
                                                                             ['cuadro-ingresos-monetarios/delete', 'id' => $model->id], [
                                                                                    'title'=> 'Eliminar Ingreso Montario',
-                                                                                   'class' => 'btn btn-danger btn-xs', 
-                                                                                   'style'=>"margin-left: 10px",
                                                                                'data' => [
                                                                                 'confirm' => Yii::t('app', 'Esta seguro que desea eliminar este Ingreso Montario'),
                                                                                 'method' => 'post',

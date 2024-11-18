@@ -1530,10 +1530,10 @@ else {
         {
             $transaction = \Yii::$app->db->beginTransaction();
           try{
-                     
+                $modelPersona->CI =  $model->personaCI ;     
               if($modelPersona->save())
               {
-              $model->personaCI = $modelPersona->CI;
+           //  $model->personaCI = $modelPersona->CI;
               $model->preparacion_intelectualid =1;
               $model->centro_trabajoid =1;
               $model->cargoid =1;
@@ -1554,7 +1554,7 @@ else {
 
 
                     $transaction->rollBack();
-                    return print_r($model->errors);
+                    ///return print_r($model->errors);
                     return $this->render('createcuadrowizard', [
                         'model' => $model,
                         'modelPersona'=>$modelPersona,
@@ -1564,7 +1564,7 @@ else {
                   
               }else{
                   
-               // return print_r($modelPersona->errors);
+                    ///return print_r($modelPersona->errors);
                 $transaction->rollBack();
                 return $this->render('createcuadrowizard', [
                     'model' => $model,
@@ -1787,7 +1787,7 @@ else {
                                     }
                                 }
                                 else{
-                                    return print_r($modelDirectivo->errors);
+                                   // return print_r($modelDirectivo->errors);
                                          Yii::$app->session->setFlash('error_validacion');
                                           $modelDirectivo->scenario = 'default';
                                         $transaction->rollBack();
@@ -1807,7 +1807,7 @@ else {
                                 return $this->redirect(['createestadosalud', 'id' => $model->id]);
                               
                     }else{
-                        return print_r($model->errors);
+                       // return print_r($model->errors);
                         $modelDirectivo->active = 0;
                           $transaction->rollBack();
                             return $this->render('createdatoslaboraleswizard',[
@@ -1820,7 +1820,7 @@ else {
                     }
                     
                 }else{
-                    return print_r($modelCargoActual);
+                    //return print_r($modelCargoActual);
                     $modelDirectivo->active = 0;
                       $transaction->rollBack();
                         return $this->render('createdatoslaboraleswizard',[
@@ -1833,7 +1833,7 @@ else {
                     
                     }
               }else{
-                  return print_r($modelDirCTA);
+                 // return print_r($modelDirCTA);
                   $modelDirectivo->active = 0;
                   $transaction->rollBack();
                     return $this->render('createdatoslaboraleswizard',[

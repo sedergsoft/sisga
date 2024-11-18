@@ -16,7 +16,7 @@ use buttflattery\formwizard\FormWizard;
 /* @var $model frontend\models\CuadroFamiliar */
 /* @var $form yii\widgets\ActiveForm */
 ?>
- <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+ <?php $form = ActiveForm::begin([/*'enableAjaxValidation' => true,*/'options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="cuadro-familiar-form">
 <?php if(Yii::$app->session->hasFlash("error_validacion")):?>
         <?php 
@@ -48,7 +48,7 @@ use buttflattery\formwizard\FormWizard;
         </div>
         <div class="row">
             <div class="col-lg-4" >
-                <?= $form->field($modelPersona, 'CI')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'personaCI')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-lg-1" >
                 <?= $form->field($modelPersona, 'sexo')->widget(Select2::className(), [

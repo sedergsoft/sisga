@@ -148,30 +148,12 @@ $this->params['tittle'][] = $this->title;
                
                            
                      return Html::a(
-                                '<span class = "glyphicon glyphicon-share";></span',
+                                '<span class = "glyphicon glyphicon-share" style="right: -10px;color:#506B28";></span',
                                 $url = Url::toRoute(['movimiento-cuadro/rechazada', 'id' => $data['id']]),
                                                                             
                                                                              [
                                                                                  'title' => 'Mover Cuadro ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea hacer un movimiento a este cuadro',
-                                                                                 'class' => 'btn btn-success btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
-                                                                               
-                                                                             ] 
-                                 ); 
-              
-                          },
-                     'view' => function ($url, $data){
-               
-                           
-                     return Html::a(
-                                '<span class = "glyphicon glyphicon-eye-open";></span',
-                                $url = Url::toRoute(['view', 'id' => $data['id']]),
-                                                                            
-                                                                             [
-                                                                                 'title' => 'Ver Cuadro ',
-                                                                                 'class' => 'btn btn-primary btn-xs', 
-                                                                                 'style'=>"margin-left: 10px",
+                                                                                 'data-confirm'=> 'Esta seguro que desea hacer un movimiento a este cuadro'
                                                                                
                                                                              ] 
                                  ); 

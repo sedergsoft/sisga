@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\EvaluacionCuadroSearch */
@@ -14,6 +13,7 @@ $this->params['tittle'][] = $this->title;
 ?>
 <div class="evaluacion-cuadro-index">
 
+  
     <?= GridView::widget(['dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'panel' => [
@@ -62,32 +62,7 @@ $this->params['tittle'][] = $this->title;
             ],
            
 
-            ['class' => 'yii\grid\ActionColumn',
-            // 'width' => '50px',  
-               
-                    'template' => '{view} ',
-               'buttons' => [
-                   
-                    'view' => function ($url, $data){
-              
-                          
-                    return Html::a(
-                               '<span class = "glyphicon glyphicon-eye-open";></span',
-                               $url = Url::toRoute(['view', 'id' => $data['id']]),
-                                                                           
-                                                                            [
-                                                                                'title' => 'Ver  Evaluación ',
-                                                                                'class' => 'btn btn-primary btn-xs', 
-                                                                                'style'=>"margin-left: 10px",
-                                                                              
-                                                                            ] 
-                                ); 
-             
-                         },
-                                 ]
-               
-           
-               ],
+            ['class' => 'yii\grid\ActionColumn',  'template'=>'{view}'],
         ],
     ]); ?>
 </div>
