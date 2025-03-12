@@ -3,13 +3,13 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-//use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use kartik\popover\PopoverX;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+//use frontend\assets\AppAsset;
+use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
 
 $asset = frontend\assets\AppAsset::register($this);
@@ -147,7 +147,8 @@ $baseUrl = $asset->baseUrl;
                                   ]];
                  $menuItems[] = ['label' => 'Nomencladores',
                             'items' =>[
-                                ['label' => 'Empresas', 'url' => ['/empresa/index']],
+                               // ['label' => 'Empresas', 'url' => ['/empresa/index']],
+                                ['label' => 'Empresas', 'url' => ['/entidad/index']],
                                 ['label' => 'Productos', 'url' => ['/producto/index']],
                                /* ['label' => 'Criterio Medida', 'url' => ['/criteriomedida/index']],
                                 ['label' => 'Indicadores de Gestión', 'url' => ['/indicadoresgestion/index']],*/
@@ -185,7 +186,8 @@ $baseUrl = $asset->baseUrl;
                             'items' =>[
                                   
                                 ['label' => 'Indicadores', 'url' => ['/cumplimiento/index']],  
-                                ['label' => 'Criterios de Medida', 'url' => ['/evaluacion/index']], 
+                                ['label' => 'Criterios de Medida', 'url' =>
+                                  ['/evaluacion/index']], 
                                ]];
            
             
@@ -366,6 +368,14 @@ $baseUrl = $asset->baseUrl;
              }
             if(Yii::$app->user->identity->rolid == "6")//menu que se muestra para el usuario Gestor de Cuadros
              {
+            $menuItems[] = ['label' => 'Mostrar ',
+                            'items' =>[
+                                  
+                              ['label' => 'Plantillas', 'url' => ['/plantilla/index']],
+                                ['label' => 'Dirección Jurídica', 'url' => ['/indicadoresgestion/llenar','id'=>3]], 
+                                ['label' => 'Dirección de Economía, Contabilidad y Finanzas', 'url' => ['/indicadoresgestion/llenar','id'=>8]], 
+                                ['label' => 'Dirección Supervisión y Control Interno', 'url' => ['/indicadoresgestion/llenar','id'=>13]], 
+                                ]];
            /* $menuItems[] = ['label' => 'Llenar indicadores ',
                             'items' =>[
                                   
@@ -375,7 +385,7 @@ $baseUrl = $asset->baseUrl;
                                 ['label' => 'Dirección Supervisión y Control Interno', 'url' => ['/indicadoresgestion/llenar','id'=>13]], 
                                 ]];
          
-            $menuItems[] = ['label' => 'Mostrar',
+         /*   $menuItems[] = ['label' => 'Mostrar',
                             'items' =>[
                                 ['label' => 'Direciones', 'url' => ['/direccion/index']],
                                 ['label' => 'Objetivo', 'url' => ['/objetivo/index']],

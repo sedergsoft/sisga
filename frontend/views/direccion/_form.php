@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Direccion */
+/* @var $model frontend\models\Entidad */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="direccion-form">
+<div class="entidad-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

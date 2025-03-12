@@ -135,16 +135,29 @@ echo $form->field($model, 'provinciaid')->widget(Select2::classname(), [
          
 <div class="row">
     
-        <div class="col-lg-4" >
+        <div class="col-lg-3" >
             <?= $form->field($model, 'telefono')->widget(MaskedInput::className()
                     ,[
              'mask'=>'999-999-9999'   
             ]) ?>
         </div>
-        <div class="col-lg-4" >
+        <div class="col-lg-3" >
 
             <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
         </div>
+        <div class="col-lg-3" >           
+     
+     <?php
+     echo $form->field($model, 'entidadid')->widget(Select2::classname(), [
+         'data' => Yii::$app->user->identity->rolid != "2"?ArrayHelper::map(frontend\models\Entidad::find()->andFilterWhere(['id'=>Yii::$app->user->identity->direccionid])->asArray()->all(), 'id', 'nombre_corto'):ArrayHelper::map(frontend\models\Entidad::find()->asArray()->all(), 'id', 'nombre_corto'),
+          'options' => ['placeholder' => 'Seleccione la entidad...'],
+     ]);
+     
+       
+     
+     
+     ?> 
+         </div>
 
     <div class="col-lg-3">
         <?= $form->field($model, 'foto')->widget(FileInput::classname(),[

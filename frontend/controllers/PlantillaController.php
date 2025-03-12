@@ -5,9 +5,10 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Plantilla;
 use frontend\models\PlantillaSearch;
+use phpDocumentor\Reflection\Types\Null_;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PlantillaController implements the CRUD actions for Plantilla model.
@@ -35,8 +36,19 @@ class PlantillaController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest)
+        {
+            return $this->redirect(['site/login']);   
+        }
         $searchModel = new PlantillaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->identity->rolid != "2")
+        {               
+            $dataProvider->query->andWhere(['empresaid'=>Yii::$app->user->identity->direccionid])->all();
+       
+        
+        }
+       
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -72,6 +84,11 @@ class PlantillaController extends Controller
      */
     public function actionCreate()
     {
+        
+        if(Yii::$app->user->identity->rolid!=2 && ($modelplantilla=Plantilla::findOne(['empresaid'=>Yii::$app->user->identity->direccionid]))!==Null)
+        {
+            $this->redirect(['view', 'id' => $modelplantilla->id]);
+        }
         $model = new Plantilla();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

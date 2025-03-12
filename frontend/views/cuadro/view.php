@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use daxslab\thumbnailer\Thumbnailer;
+use frontend\controllers\CuadroController;
+use frontend\models\LimitacionesSalud;
 use kartik\grid\GridView;
 use yii\helpers\Url;
 use yii\bootstrap\Alert;
@@ -193,14 +195,14 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Calle',
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->calle,
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->calle:"",
                                          'displayOnly'=>true
                                     ],
                             
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Número',
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->numero,
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->numero:"",
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                    // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
@@ -208,14 +210,14 @@ $this->params['tittle'][]= $this->title;
                             [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Edificio',
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->edif,
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->edif:'',
                                      // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
                              [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Apto.',
-                                   'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->apto,
+                                   'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->apto:'',
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
@@ -229,7 +231,7 @@ $this->params['tittle'][]= $this->title;
                                     [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Piso.',
-                                   'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->piso,
+                                   'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->piso:'',
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
@@ -237,7 +239,7 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Entre calle uno',
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_uno,
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_uno:'',
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                     'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
@@ -245,14 +247,14 @@ $this->params['tittle'][]= $this->title;
                             [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Entre Calle Dos',
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_dos,
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_dos:'',
                                     'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                              [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Reparto.',
-                                   'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->Reparto,
+                                   'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->Reparto:"",
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
@@ -266,7 +268,7 @@ $this->params['tittle'][]= $this->title;
                                     [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Municipio',
-                                   'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->municipio->municipio,
+                                   'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->municipio->municipio:'',
                                      'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
@@ -274,7 +276,7 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Provincia',
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->provincia->provincia,
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->provincia->provincia:'',
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                    'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
@@ -504,7 +506,7 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'saludid',
                                     'label'=>'Limitaciones Laborales',
-                                    'value'=> frontend\models\LimitacionesSalud::find()->where(['saludid'=>$model->salud->id])->one()->limitaciones->limitacion,
+                                    'value'=> LimitacionesSalud::find()->where(['saludid'=>$model->salud->id])->one()?LimitacionesSalud::find()->where(['saludid'=>$model->salud->id])->one()->limitaciones->limitacion:'',
                                     //'valueColOptions'=>['style'=>'width:30%'],
                                     'displayOnly'=>true,
                                     ],

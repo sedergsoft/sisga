@@ -17,7 +17,7 @@ class CuadroSearch extends Cuadro
     public function rules()
     {
         return [
-            [['id', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'trayectoria_militarid', 'vehiculo', 'arma', 'ingresos_monetarios', 'beneficio_ingreso', 'reserva_cuadro', 'saludid'], 'integer'],
+            [['id', 'preparacion_intelectualid','entidadid', 'centro_trabajoid', 'cargoid', 'trayectoria_militarid', 'vehiculo', 'arma', 'ingresos_monetarios', 'beneficio_ingreso', 'reserva_cuadro', 'saludid'], 'integer'],
             [['personaCI', 'Lugar_nacimiento', 'ciudadania', 'color_piel', 'color_ojos', 'color_pelo', 'telefono', 'email', 'ubicacion_tiempo_guerra', 'foto'], 'safe'],
             [['estatura', 'peso'], 'number'],
         ];

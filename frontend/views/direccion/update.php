@@ -3,16 +3,16 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Direccion */
+/* @var $model frontend\models\Entidad */
 
-$this->title = Yii::t('app', 'Update Direccion: {name}', [
+$this->title = Yii::t('app', 'Update Entidad: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Direccions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Entidad'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="direccion-update">
+<div class="entidad-update">
 
 
     <?= $this->render('_form', [

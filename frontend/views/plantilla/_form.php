@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Entidad;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
@@ -19,7 +20,8 @@ use kartik\touchspin\TouchSpin;
          <div class="col-lg-12">
             
         <?= $form->field($model, 'empresaid')->widget(Select2::className(), [
-                     'data'=> ArrayHelper::map(frontend\models\Empresa::find()->asArray()->andFilterWhere(['not', ['id' => ArrayHelper::map(\frontend\models\Plantilla::find()->all(), 'id','empresaid')]])->all(), 'id', 'nombre'),
+                     'data'=> Yii::$app->user->identity->rolid == "2"?ArrayHelper::map(Entidad::find()->asArray()->andFilterWhere(['not', ['id' => ArrayHelper::map(\frontend\models\Plantilla::find()->all(), 'id','empresaid')]])->all(), 'id', 'nombre'):ArrayHelper::map(Entidad::find()->asArray()->andFilterWhere(['id' => Yii::$app->user->identity->direccionid ])->all(), 'id', 'nombre'),
+
                     'pluginOptions'=>['placeholder'=>'Selecione la Empresa..'],
                    
                 ]) ?> 

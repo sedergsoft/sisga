@@ -7,10 +7,10 @@ use kartik\grid\GridView;
 /* @var $searchModel frontend\models\DireccionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Direcciones');
+$this->title = Yii::t('app', 'Entiades');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['tittle'][]= $this->title;
-$this->params['desc'][]= "Direciones que componen el grupo";
+$this->params['desc'][]= "Entidades que componen el grupo";
 ?>
 <div class="direccion-index">
    
@@ -28,7 +28,7 @@ $this->params['desc'][]= "Direciones que componen el grupo";
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'panel' => [
-        'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> Direciones</h3>',
+        'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> Entidades</h3>',
         'type'=>'primary',
         // 'before'=>Html::button('<i class="glyphicon glyphicon-plus"></i> Agregar ', ['value'=>Url::to('index.php?r=mesa/create'),'class' => 'btn btn-success','id'=>'modalButton']),
         'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Agregar', ['create'], ['class' => 'btn btn-success']),
@@ -64,7 +64,7 @@ $this->params['desc'][]= "Direciones que componen el grupo";
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'panel' => [
-        'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> Direciones</h3>',
+        'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> Entidades</h3>',
         'type'=>'primary',
         // 'before'=>Html::button('<i class="glyphicon glyphicon-plus"></i> Agregar ', ['value'=>Url::to('index.php?r=mesa/create'),'class' => 'btn btn-success','id'=>'modalButton']),
        // 'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Agregar', ['create'], ['class' => 'btn btn-success']),

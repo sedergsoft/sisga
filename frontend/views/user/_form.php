@@ -7,7 +7,7 @@ use yii\bootstrap\Alert;
 use yii\widgets\MaskedInput;
 
 use backend\models\Rol;
-
+use frontend\models\Entidad;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
@@ -92,8 +92,8 @@ use backend\models\Rol;
                <td colspan="2">
              <?=                          
                      $form->field($model, 'direccionid')->widget(kartik\select2\Select2::className(),[
-                    'data'=> yii\helpers\ArrayHelper::map(frontend\models\Direccion::find()->all(), 'id', 'nombre'),
-                    'pluginOptions'=>['placeholder'=>'Selecione la direcion del usuario..'
+                    'data'=> yii\helpers\ArrayHelper::map(Entidad::find()->all(), 'id', 'nombre_corto'),
+                    'pluginOptions'=>['placeholder'=>'Selecione la entidad..'
                         
                         ],
                          

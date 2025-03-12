@@ -33,6 +33,7 @@ use Yii;
  * @property int $reserva_cuadro
  * @property int $saludid
  * @property int $status
+ * @property int $entidadid
  * 
  *
  * @property Armas[] $armas
@@ -41,6 +42,7 @@ use Yii;
  * @property Cargo $cargo
  * @property CentroTrabajo $centroTrabajo
  * @property Salud $salud
+ * @property Entidad $entidad
  * @property PreparacionIntelectual $preparacionIntelectual
  * @property TrayectoriaMilitar $trayectoriaMilitar
  * @property Persona $personaCI0
@@ -83,7 +85,7 @@ class Cuadro extends \yii\db\ActiveRecord
     {
         return [
             [['personaCI', 'Lugar_nacimiento', 'ciudadania', 'color_piel', 'color_ojos', 'color_pelo', 'estatura', 'peso', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'fecha_inicio_cargo',  'ubicacion_tiempo_guerra', 'foto', 'saludid'], 'required'],
-            [['Lugar_nacimiento', 'provinciaid', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'trayectoria_militarid', 'vehiculo', 'arma', 'ingresos_monetarios', 'beneficio_ingreso', 'trayectoria_militarid','reserva_cuadro', 'saludid'], 'integer'],
+            [['Lugar_nacimiento','entidadid', 'provinciaid', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'trayectoria_militarid', 'vehiculo', 'arma', 'ingresos_monetarios', 'beneficio_ingreso', 'trayectoria_militarid','reserva_cuadro', 'saludid'], 'integer'],
             [['estatura', 'peso'], 'number'],
             [['fecha_inicio_cargo'], 'safe'],
             [['personaCI'], 'string', 'min'=>11,'max' => 11,],
@@ -118,6 +120,7 @@ class Cuadro extends \yii\db\ActiveRecord
             'color_ojos' => Yii::t('app', 'Color Ojos'),
             'color_pelo' => Yii::t('app', 'Color Pelo'),
             'estatura' => Yii::t('app', 'Estatura'),
+            'entidadid' => Yii::t('app', 'Entidad'),
             'peso' => Yii::t('app', 'Peso'),
             'telefono' => Yii::t('app', 'Telefono'),
             'email' => Yii::t('app', 'Email'),
@@ -169,6 +172,10 @@ class Cuadro extends \yii\db\ActiveRecord
     public function getCargo()
     {
         return $this->hasOne(Cargo::className(), ['id' => 'cargoid']);
+    }
+    public function getEntidad()
+    {
+        return $this->hasOne(Entidad::className(), ['id' => 'entidadid']);
     }
 
     /**

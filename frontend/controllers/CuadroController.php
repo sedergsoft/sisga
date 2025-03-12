@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use frontend\models\Cuadro;
@@ -50,7 +51,10 @@ use frontend\models\CuadroIngresosMonetarios;
 use frontend\models\PreparacionIntelectualIdiomas;
 use frontend\models\Idiomas;
 use frontend\models\MiitanciaPoliticCuadro;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * CuadroController implements the CRUD actions for Cuadro model.
@@ -86,6 +90,10 @@ class CuadroController extends Controller
         $searchModel = new CuadroSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->andFilterWhere(['status'=>1]);
+        if(Yii::$app->user->identity->rolid != "1")
+        {
+            $dataProvider->query->andFilterWhere(['entidadid'=>Yii::$app->user->identity->direccionid])->all();
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -118,7 +126,7 @@ class CuadroController extends Controller
         $dataProviderlugaresResidencias = $searchModellugaresResidencias->search(Yii::$app->request->queryParams);
         $dataProviderlugaresResidencias->query->andFilterWhere(['cuadroid'=> $id]);
         
-        $trayectoria = TrayectoriaEstudiantilController::findModel(['cuadroid'=>$id]);
+        $trayectoria = TrayectoriaEstudiantil::findOne(['cuadroid'=>$id]);
         
         $searchModelEnfermedades = new \frontend\models\EnfermedadSaludSearch();
         $dataProviderEnfermedades = $searchModelEnfermedades->search(Yii::$app->request->queryParams);

@@ -224,7 +224,7 @@ class ControlUsuarioController extends Controller
      }
      return $encontrado;
     }
-    public function crearpreguntas($model)
+    public static function crearpreguntas($model)
     {
       $model->preg_1 = 'pregunta 1';  
       $model->preg_2 = 'pregunta 2';  

@@ -12,7 +12,7 @@ use Yii;
  * @property int $cant_cuadros
  * @property int $trabajadores_cubierta
  * @property int $cuadros_cubierta
- * @property int $empresaid
+ * @property int $entidadid
  */
 class Plantilla extends \yii\db\ActiveRecord
 {
@@ -50,7 +50,7 @@ class Plantilla extends \yii\db\ActiveRecord
             'cant_cuadros' => Yii::t('app', 'Cantidad de Cuadros Aprobados'),
             'trabajadores_cubierta' => Yii::t('app', 'Cantidad de Trabajadores Cubiertos'),
             'cuadros_cubierta' => Yii::t('app', 'Cantidad de Cuadros Cubierto'),
-            'empresaid' => Yii::t('app', 'Empresa'),
+            'empresaid' => Yii::t('app', 'Entidad'),
         ];
     }
     

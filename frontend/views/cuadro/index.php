@@ -37,7 +37,7 @@ $this->params['tittle'][] = $this->title;
         'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> Cuadros</h3>',
         'type'=>'primary',
         // 'before'=>Html::button('<i class="glyphicon glyphicon-plus"></i> Agregar ', ['value'=>Url::to('index.php?r=mesa/create'),'class' => 'btn btn-success','id'=>'modalButton']),
-        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Agregar', ['create'], ['class' => 'btn btn-success']),
+        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Agregar', ['createwiz'], ['class' => 'btn btn-success']),
         //'after'=>Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset Grid', ['index'], ['class' => 'btn btn-info']),
         //'footer'=>false
            ],

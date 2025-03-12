@@ -1112,7 +1112,7 @@ h1',
     
    public static function Porciento($a,$b) 
    {
-       return ($b/$a)*100;
+       return $a==0?'0':($b/$a)*100;
        
    }
    

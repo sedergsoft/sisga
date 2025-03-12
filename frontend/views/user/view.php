@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Entidad;
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use yii\helpers\ArrayHelper;
@@ -37,11 +38,11 @@ $this->params['tittle'][]= $this->title;
             //'email',
         [
                 'attribute'=> 'direccionid',
-                'label' => 'Direccion a la que pertenece',
+                'label' => 'Entidad a la que pertenece',
                 'value'=>$model->direccion->nombre,
                 'type'=> DetailView::INPUT_SELECT2,
                                  'widgetOptions'=>[
-                               'data'=> ArrayHelper::map(\frontend\models\direccion::find()->andFilterWhere(['Status'=>1])->all(), 'id', 'nombre'),
+                               'data'=> ArrayHelper::map(Entidad::find()->andFilterWhere(['Status'=>1])->all(), 'id', 'nombre_corto'),
                               
                                ],
                 ],
@@ -118,11 +119,11 @@ $this->params['tittle'][]= $this->title;
             //'email',
         [
                 'attribute'=> 'direccionid',
-                'label' => 'Direccion a la que pertenece',
+                'label' => 'Entidad a la que pertenece',
                 'value'=>$model->direccion->nombre,
                 'type'=> DetailView::INPUT_SELECT2,
                                  'widgetOptions'=>[
-                               'data'=> ArrayHelper::map(\frontend\models\direccion::find()->andFilterWhere(['Status'=>1])->all(), 'id', 'nombre'),
+                               'data'=> ArrayHelper::map(Entidad::find()->andFilterWhere(['Status'=>1])->all(), 'id', 'nombre_corto'),
                               
                                ],
                 ],

@@ -41,7 +41,7 @@ $this->params['tittle'][] = $this->title;
               'value'=>function ($model){
                 
                 
-            return  frontend\models\Empresa::findOne($model->empresaid)->nombre;
+            return  frontend\models\Entidad::findOne($model->empresaid)->nombre;
               }
             ],
             

@@ -19,7 +19,7 @@ $this->params['tittle'][] = $this->title;
        
     <hr>
  
-    
+
     
     <table border="1" class=" panel panel-info kv-grid-table table table-bordered table-striped kv-table-wrap">
         <thead>
@@ -52,7 +52,7 @@ $this->params['tittle'][] = $this->title;
              <tr>
                 <td>Cuadros Evaluados</td>
                 <td><?php print_r($modelplantilla['cuadros_cubierta']);?></td>
-                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla['cant_cuadros'],$modelplantilla['cuadros_cubierta']));?></td>
+                <td><?php print_r(\frontend\controllers\SiteController::Porciento($modelplantilla['cant_cuadros'],$evaluados));?></td>
             </tr> 
             
             

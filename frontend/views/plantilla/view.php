@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Plantilla */
 
-$this->title = frontend\models\Empresa::findOne($model->empresaid)->nombre;
+$this->title = frontend\models\Entidad::findOne($model->empresaid)->nombre;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Plantillas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['tittle'][] = $this->title;
@@ -22,7 +22,7 @@ $this->params['tittle'][] = $this->title;
     'hideIfEmpty'=>TRUE,
     'mode'=>DetailView::MODE_VIEW,
     'panel'=>[
-        'heading'=> frontend\models\Empresa::findOne($model->empresaid)->nombre,
+        'heading'=> frontend\models\Entidad::findOne($model->empresaid)->nombre,
         'type'=>DetailView::TYPE_INFO,
     ],
         'attributes' => [
@@ -127,10 +127,10 @@ $this->params['tittle'][] = $this->title;
             [
              'attribute' =>  'empresaid',
               //'label' => 'Responsable ',
-              'value'=> frontend\models\Empresa::findOne($model->empresaid)->nombre,
+              'value'=> frontend\models\Entidad::findOne($model->empresaid)->nombre,
               'type'=> DetailView::INPUT_SELECT2, 
                  'widgetOptions'=>[
-                               'data'=> ArrayHelper::map(\frontend\models\Empresa::find()->all(), 'id', 'nombre'),
+                               'data'=> ArrayHelper::map(\frontend\models\Entidad::find()->all(), 'id', 'nombre'),
                               
                                ],
                 'displayOnly'=>TRUE,

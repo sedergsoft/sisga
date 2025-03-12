@@ -5,15 +5,15 @@ use kartik\detail\DetailView;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Direccion */
+/* @var $model frontend\models\Entidad */
 
 $this->title = $model->nombre;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Direcciones'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Entidades'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['tittle'][]= $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="direccion-view">
+<div class="entidad-view">
 
     
   

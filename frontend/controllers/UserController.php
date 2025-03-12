@@ -4,12 +4,12 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\User;
-use frontend\models\UserSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\web\MethodNotAllowedHttpException;
 use frontend\models\Trabajador;
+use frontend\models\UserSearch;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
+use yii\web\MethodNotAllowedHttpException;
+use yii\web\NotFoundHttpException;
 
 
 /**
@@ -349,7 +349,8 @@ class UserController extends Controller
    
       public static function IsConnected($username)
     {
-       $user = User::findByUsername($username);
+       return false;
+        $user = User::findByUsername($username);
        if($user->rolid == 2)
        {
            return false;
