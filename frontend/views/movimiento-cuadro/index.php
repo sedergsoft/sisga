@@ -70,15 +70,31 @@ $this->params['tittle'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
              'template' => '{view} {aprobar} {denegar}',
              'buttons'=>[
-                            'aprobar'=> function($url,$data)
+                            
+                'view'=> function($url,$data)
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-ok" style="right: -10px;color:green";></span',
+                                                                            '<i class = "glyphicon glyphicon-eye-open";></i>',
+                                                                            $url = Url::toRoute(['view', 'id' => $data['id']]),
+                                                                            
+                                                                             [
+                                                                                'class'=>'btn btn-info btn-xs', 
+                                                                                'title' => 'Ver  Propuesta ',
+                                                                                 
+                                                                             ]
+                                                                            );    
+                                                           },
+                'aprobar'=> function($url,$data)
+                                        {
+                                       
+                                                            return Html::a(
+                                                                            '<i class = "glyphicon glyphicon-ok";></i>',
                                                                             $url = Url::toRoute(['movimiento-cuadro/aprobar', 'id' => $data['id']]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Aprobar Propuesta ',
+                                                                                'class'=>'btn btn-success btn-xs', 
+                                                                                'title' => 'Aprobar Propuesta ',
                                                                                  'data-confirm'=> 'Esta seguro que desea aprobar la propuesta de Moviemiento'
                                                                                
                                                                              ]
@@ -88,11 +104,12 @@ $this->params['tittle'][] = $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-remove" style="right: -20px;color:red";></span',
+                                                                            '<i class = "glyphicon glyphicon-remove";></i>',
                                                                             $url = Url::toRoute(['movimiento-cuadro/denegar', 'id' => $data['id']]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Rechazar Propuesta ',
+                                                                                'class'=>'btn btn-danger btn-xs', 
+                                                                                'title' => 'Rechazar Propuesta ',
                                                                                  'data-confirm'=> 'Esta seguro que desea rechazar la propuesta de movimiento',
                                                                                
                                                                              ]

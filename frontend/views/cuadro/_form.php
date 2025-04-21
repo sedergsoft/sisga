@@ -362,25 +362,25 @@ echo $form->field($model, 'Lugar_nacimiento')->widget(Select2::classname(), [
         </div>        
 </div>
 <div>
-        <div class="panel panel-default">
+        <div class="panel panel-i">
         <div class="panel-heading" align = "center"><h4><i class="glyphicon glyphicon-plus"></i> Enfermedades que padece</h4></div>
         <div class="panel-body">
-             <?php DynamicFormWidget::begin([
-                'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                'widgetBody' => '.container-items', // required: css class selector
-                'widgetItem' => '.item', // required: css class
-                'limit' => 4, // the maximum times, an element can be cloned (default 999)
-                'min' => 1, // 0 or 1 (default 1)
-                'insertButton' => '.add-item', // css class
-                'deleteButton' => '.remove-item', // css class
-                'model' => $modelsEnfermedad[0],
-                'formId' => 'dynamic-formsalud',
-                'formFields' => [
-                    'enfermedad',
-                    'tratamiento',
-                    
-                ],
-            ]); ?>
+                 <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items', // required: css class selector
+                    'widgetItem' => '.item', // required: css class
+                    'limit' => 4, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item', // css class
+                    'deleteButton' => '.remove-item', // css class
+                    'model' => $modelsEnfermedad[0],
+                    'formId' => 'dynamic-formsalud',
+                    'formFields' => [
+                        'enfermedad',
+                        'tratamiento',
+                        
+                    ],
+                ]); ?>
 
             <div class="container-items"><!-- widgetContainer -->
             <?php foreach ($modelsEnfermedad as $i => $modelEnfermedad): ?>

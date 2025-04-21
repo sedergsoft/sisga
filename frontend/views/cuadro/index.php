@@ -109,18 +109,18 @@ $this->params['tittle'][] = $this->title;
            
             [
             'attribute'=>'id',
-            'label' => 'Evaluación Válida',
+            'label' => 'Estado de Evaluación',
             'format'=>"raw",
-           /* 'filterType'=>GridView::FILTER_SELECT2,   
-                       'filter'=>[
-                           0=>'no',
-                           1=>'si',
-                       ], 
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                 'filterInputOptions'=>['placeholder'=>'estado'],
-                  */
+            // 'filterType'=>GridView::FILTER_SELECT2,   
+            //            'filter'=>[
+            //                0=>'no',
+            //                1=>'si',
+            //            ], 
+            //     'filterWidgetOptions'=>[
+            //         'pluginOptions'=>['allowClear'=>true],
+            //     ],
+            //      'filterInputOptions'=>['placeholder'=>'estado'],
+                
             'width' => '10%',
             'value'=> function ($model)
             {
@@ -128,12 +128,12 @@ $this->params['tittle'][] = $this->title;
              {
                 if(\frontend\controllers\CuadroController::evaluacionValida($model->id)== true)
                 {
-                    return '<span class = "glyphicon glyphicon-ok" style="color:green";></span">';
-                }else{return  '<span class = "glyphicon glyphicon-remove" style="color:red";></span">';}
+                    return '<span class = "label label-success" > Válida</span">';
+                }else{return  '<span class = "label label-danger"";> No Válida</span">';}
                 return frontend\models\EvaluacionCuadro::findOne(['cuadroid'=>$model->id])->fecha;
              }
              else {
-                 return  '<span class = "glyphicon glyphicon-remove" style="color:red";></span">'; 
+                 return  '<span class = "label label-default"";> No evaluado</span">'; 
                 }
              }
             
@@ -142,19 +142,39 @@ $this->params['tittle'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
              // 'width' => '50px',  
                 
-                     'template' => '{view} {move}',
+                     'template' => '{view} {move} {reserva}',
                 'buttons' => [
                      'move' => function ($url, $data){
-               
-                           
-                     return Html::a(
-                                '<span class = "glyphicon glyphicon-share" style="right: -10px;color:#506B28";></span',
-                                $url = Url::toRoute(['movimiento-cuadro/rechazada', 'id' => $data['id']]),
+                         return Html::a( '<i class="glyphicon glyphicon-share"></i>',
+                         $url = Url::toRoute(['movimiento-cuadro/rechazada', 'id' => $data['id']]),
                                                                             
                                                                              [
+                                                                                'class' => 'btn btn-warning btn-xs',
                                                                                  'title' => 'Mover Cuadro ',
                                                                                  'data-confirm'=> 'Esta seguro que desea hacer un movimiento a este cuadro'
                                                                                
+                                                                             ] 
+                                 ); 
+              
+                          },
+                     'view' => function ($url, $data){
+                         return Html::a( '<i class="glyphicon glyphicon-eye-open"></i>',
+                         $url = Url::toRoute(['view', 'id' => $data['id']]),
+                                                                            
+                                                                             [
+                                                                                'class' => 'btn btn-primary btn-xs',
+                                                                                  
+                                                                             ] 
+                                 ); 
+              
+                          },
+                     'reserva' => function ($url, $data){
+                         return Html::a( '<i class="glyphicon glyphicon-registration-mark"></i>',
+                         $url = Url::toRoute(['reserva-cuadro/create', 'id' => $data['id']]),
+                                                                            
+                                                                             [
+                                                                                'class' => 'btn btn-success btn-xs',
+                                                                                  
                                                                              ] 
                                  ); 
               

@@ -115,6 +115,7 @@ echo $form->field($model, 'provinciaid')->widget(Select2::classname(), [
                                                 'type' => DepDrop::TYPE_SELECT2,
                                                 'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                                                 'pluginOptions'=>[
+                                                    'initialeze'=>true,
                                                     'depends'=>['cuadro-provinciaid'],
                                                     'url' => Url::to(['/direcciones/child-account']),
                                                     'loadingText' => 'Buscando municipios ...',

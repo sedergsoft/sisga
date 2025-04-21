@@ -122,7 +122,7 @@ $this->params['tittle'][] = $this->title;
                                     'attribute'=>'personaCI',
                                     'label'=>'Foto',
                                     'format'=>'raw',    
-                                    'value'=> '<img class="etalage_thumb_image" src="'. Yii::$app->request->baseUrl.'/'.$modelSustituto->foto.'"/>',
+                                    'value'=> '<img class="etalage_thumb_image" src="'. Yii::$app->request->baseUrl.'/'.$modelSustituto->foto.'" style="width:100px"/>',
                                     'valueColOptions'=>['style'=>'width:40%'],
                                     'displayOnly'=>true
                                     ],
@@ -315,7 +315,7 @@ $this->params['tittle'][] = $this->title;
                                     'attribute'=>'personaCI',
                                     'label'=>'Foto',
                                     'format'=>'raw',    
-                                    'value'=> '<img class="etalage_thumb_image" src="'. Yii::$app->request->baseUrl.'/'.$modelSustituido->foto.'"/>',
+                                    'value'=> '<img class="etalage_thumb_image" src="'. Yii::$app->request->baseUrl.'/'.$modelSustituido->foto.'" style="width: 100px;"/>',
                                     'valueColOptions'=>['style'=>'width:40%'],
                                     'displayOnly'=>true
                                     ],

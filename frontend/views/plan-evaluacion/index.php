@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ProyeccionSearchPlanEvaluacion */
@@ -84,13 +85,30 @@ $this->params['tittle'][] = $this->title;
              'attribute'=>'status',
               'label'=> ' ¿Evaluado?',
               'value'=>  function ($model){
-             return             $model->status ==1 ? '<i class="glyphicon glyphicon-ok" style="color:green"></i>' :'<i class="glyphicon glyphicon-remove" style="color:red"></i>' ;
+             return             $model->status ==1 ? '<span class = "label label-success" > Evaluado </span">' :'<span class = "label label-danger" >No evaluado</span">' ;
             },
                     'format'=>'raw',
            ],
             //'observaciones',
 
-            ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
+            ['class' => 'yii\grid\ActionColumn','template'=>'{view}',
+              
+                'buttons'=>[
+                  'view' => function ($url, $data){
+                    return Html::a( '<i class="glyphicon glyphicon-eye-open"></i>',
+                    $url = Url::toRoute(['view', 'id' => $data['id']]),
+                                                                       
+                                                                        [
+                                                                           'class' => 'btn btn-primary btn-xs',
+                                                                             
+                                                                        ] 
+                            ); 
+         
+                     },
+                ]
+
+              
+            ],
         ],
     ]); ?>
 </div>

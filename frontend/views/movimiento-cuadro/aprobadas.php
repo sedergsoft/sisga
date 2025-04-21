@@ -66,11 +66,25 @@ $this->params['tittle'][] = $this->title;
             
             //'evaluacion_cuadroid',
 
-            ['class' => 'yii\grid\ActionColumn',
-             'template' => '{view}' 
-                           
-                
-               ],] 
+            ['class' => 'yii\grid\ActionColumn','template'=>'{view}',
+              
+            'buttons'=>[
+              'view' => function ($url, $data){
+                return Html::a( '<i class="glyphicon glyphicon-eye-open"></i>',
+                $url = Url::toRoute(['view', 'id' => $data['id']]),
+                                                                   
+                                                                    [
+                                                                       'class' => 'btn btn-primary btn-xs',
+                                                                         
+                                                                    ] 
+                        ); 
+     
+                 },
+            ]
+
+          
+        ],
+               ] 
             
         
     ]); ?>

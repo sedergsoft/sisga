@@ -108,4 +108,9 @@ class Persona extends \yii\db\ActiveRecord
      return $valido;
    }
 
+   public function nombrecompleto()
+   {
+    return $this->Nombre.' '.$this->primer_apellido.' '.$this->segundo_apellido;
+   }
+
 }

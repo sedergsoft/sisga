@@ -2,6 +2,10 @@
 
 namespace frontend\controllers;
 
+use Exception;
+use frontend\models\Cuadro;
+use frontend\models\MiitanciaPolitic;
+use frontend\models\MiitanciaPoliticCuadro;
 use Yii;
 use frontend\models\PreparacionIntelectual;
 use frontend\models\PreparacionIntelectualSearch;
@@ -62,16 +66,61 @@ class PreparacionIntelectualController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($cuadroid)
     {
         $model = new PreparacionIntelectual();
+        $cuadro = Cuadro::find()->andFilterWhere(['id'=>$cuadroid])->one();
+        
+        $modelMiliatanciaPolitica = MiitanciaPoliticCuadro::findOne(['cuadroid'=>$cuadroid]);
+        if(!$modelMiliatanciaPolitica)
+        {
+            $modelMiliatanciaPolitica = new MiitanciaPoliticCuadro();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        if ($model->load(Yii::$app->request->post())&&$modelMiliatanciaPolitica->load(Yii::$app->request->post()) ) 
+        {
+            $transaction = \Yii::$app->db->beginTransaction();
+            try{
+                if($model->save())
+                {
+                    $cuadro->updateAttributes(['preparacion_intelectualid'=>$model->id]);
+                    $modelMiliatanciaPolitica->cuadroid = $cuadroid;
+                   
+                    //return print_r($modelMiliatanciaPolitica);
+                    if($modelMiliatanciaPolitica->save())
+                    {
+                        $transaction->commit();
+                        return $this->redirect(['cuadro/view', 'id' => $cuadro->id]);
+                    }else{
+
+                        $transaction->rollBack();
+                       // return print_r($modelMiliatanciaPolitica);
+                        return $this->render('create', [
+                            'model' => $model,
+                            'modelMiliatanciaPolitica' => $modelMiliatanciaPolitica,
+                            'cuadro' => $cuadro,
+                        ]);
+                    }
+
+                }else{
+                    $transaction->rollBack();
+                    return $this->render('create', [
+                        'model' => $model,
+                        'modelMiliatanciaPolitica' => $modelMiliatanciaPolitica,
+                        'cuadro' => $cuadro,
+                    ]);
+                }
+            
+            }catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            
+        }
         return $this->render('create', [
             'model' => $model,
+            'cuadro' => $cuadro,
+            'modelMiliatanciaPolitica' => $modelMiliatanciaPolitica,
         ]);
     }
 
@@ -82,16 +131,65 @@ class PreparacionIntelectualController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$cuadroid)
     {
+       if($id ==1)
+       {
+        $this->redirect(['create','cuadroid'=>$cuadroid]);
+       }
         $model = $this->findModel($id);
+       
+        $cuadro = Cuadro::find()->andFilterWhere(['id'=>$cuadroid])->one();
+        $modelMiliatanciaPolitica = MiitanciaPoliticCuadro::findOne(['cuadroid'=>$cuadroid]);
+        if(!$modelMiliatanciaPolitica)
+        {
+            $modelMiliatanciaPolitica = new MiitanciaPoliticCuadro();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        if ($model->load(Yii::$app->request->post())&&$modelMiliatanciaPolitica->load(Yii::$app->request->post()) ) 
+        {
+            $transaction = \Yii::$app->db->beginTransaction();
+            try{
+                if($model->save())
+                {
+                    $cuadro->updateAttributes(['preparacion_intelectualid'=>$model->id]);
+                    $modelMiliatanciaPolitica->cuadroid = $cuadroid;
+                   
+                    //return print_r($modelMiliatanciaPolitica);
+                    if($modelMiliatanciaPolitica->save())
+                    {
+                        $transaction->commit();
+                        return $this->redirect(['cuadro/view', 'id' => $cuadro->id]);
+                    }else{
+
+                        $transaction->rollBack();
+                       // return print_r($modelMiliatanciaPolitica);
+                        return $this->render('update', [
+                            'model' => $model,
+                            'modelMiliatanciaPolitica' => $modelMiliatanciaPolitica,
+                            'cuadro' => $cuadro,
+                        ]);
+                    }
+
+                }else{
+                    $transaction->rollBack();
+                    return $this->render('update', [
+                        'model' => $model,
+                        'modelMiliatanciaPolitica' => $modelMiliatanciaPolitica,
+                        'cuadro' => $cuadro,
+                    ]);
+                }
+            
+            }catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            
+        }
         return $this->render('update', [
             'model' => $model,
+            'modelMiliatanciaPolitica' => $modelMiliatanciaPolitica,
+            'cuadro' => $cuadro,
         ]);
     }
 

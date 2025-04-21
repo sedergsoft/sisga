@@ -58,8 +58,8 @@ use kartik\detail\DetailView;
                                     'attribute'=>'personaCI',
                                     'label'=>'Foto',
                                     'format'=>'raw',    
-                                    'value'=> '<img class="etalage_thumb_image" src="'. Yii::$app->request->baseUrl.'/'.$modelCuadro->foto.'"/>',
-                                    'valueColOptions'=>['style'=>'width:40%'],
+                                    'value'=> '<img class="etalage_thumb_image" src="'. Yii::$app->request->baseUrl.'/'.$modelCuadro->foto.'" style="width: 100px;"/>',
+                                    'valueColOptions'=>['style'=>'width:100px'],
                                     'displayOnly'=>true
                                     ],
                                                         

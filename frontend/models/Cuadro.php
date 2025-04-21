@@ -68,6 +68,7 @@ class Cuadro extends \yii\db\ActiveRecord
 {
    
       public $file;
+    //  public $nombre;
     /**
      * {@inheritdoc}
      */
@@ -82,8 +83,14 @@ class Cuadro extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+<<<<<<< Updated upstream
             [['personaCI', 'Lugar_nacimiento', 'ciudadania', 'color_piel', 'color_ojos', 'color_pelo', 'estatura', 'peso', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'fecha_inicio_cargo',  'ubicacion_tiempo_guerra', 'foto', 'saludid'], 'required'],
             [['Lugar_nacimiento', 'provinciaid', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'trayectoria_militarid', 'vehiculo', 'arma', 'ingresos_monetarios', 'beneficio_ingreso', 'trayectoria_militarid','reserva_cuadro', 'saludid'], 'integer'],
+=======
+            [['personaCI', 'Lugar_nacimiento', 'ciudadania', 'color_piel', 'color_ojos', 'color_pelo', 'estatura', 'peso', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'fecha_inicio_cargo',  'ubicacion_tiempo_guerra', 'saludid'], 'required'],
+            [['foto'], 'required','on'=>'create'],
+            [['Lugar_nacimiento','entidadid', 'provinciaid', 'preparacion_intelectualid', 'centro_trabajoid', 'cargoid', 'trayectoria_militarid', 'vehiculo', 'arma', 'ingresos_monetarios', 'beneficio_ingreso', 'trayectoria_militarid','reserva_cuadro', 'saludid'], 'integer'],
+>>>>>>> Stashed changes
             [['estatura', 'peso'], 'number'],
             [['fecha_inicio_cargo'], 'safe'],
             [['personaCI'], 'string', 'min'=>11,'max' => 11,],
@@ -99,7 +106,8 @@ class Cuadro extends \yii\db\ActiveRecord
             [['provinciaid'], 'exist', 'skipOnError' => true, 'targetClass' => Provincia::className(), 'targetAttribute' => ['provinciaid' => 'id']],
             [['Lugar_nacimiento'], 'exist', 'skipOnError' => true, 'targetClass' => Municipio::className(), 'targetAttribute' => ['Lugar_nacimiento' => 'id']],
             [['file'],'safe'],
-          //  [['file'],'file','extensions'=>'jpg, gif, png'],
+            [['nombre'],'safe'],
+         //   [['file'],'file','extensions'=>'jpg, gif, png', 'skipOnEmpty'=>true],
             ];
     }
 
@@ -147,6 +155,7 @@ class Cuadro extends \yii\db\ActiveRecord
         return $this->hasMany(Armas::className(), ['cuadroid' => 'id']);
     }
 
+   
     /**
      * @return \yii\db\ActiveQuery
      */

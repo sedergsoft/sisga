@@ -91,6 +91,25 @@ class CuadroController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionReservas()
+    {
+          if(Yii::$app->user->isGuest)
+        {
+            return $this->redirect(['site/login']);   
+        }
+     
+        $searchModel = new CuadroSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['status'=>1])->andFilterWhere(['reserva_cuadro'=>1])->all();
+        if(Yii::$app->user->identity->rolid != "1")
+        {
+            $dataProvider->query->andFilterWhere(['entidadid'=>Yii::$app->user->identity->direccionid])->all();
+        }
+        return $this->render('reservas', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Cuadro model.
@@ -118,8 +137,14 @@ class CuadroController extends Controller
         $dataProviderlugaresResidencias = $searchModellugaresResidencias->search(Yii::$app->request->queryParams);
         $dataProviderlugaresResidencias->query->andFilterWhere(['cuadroid'=> $id]);
         
+<<<<<<< Updated upstream
         $trayectoria = TrayectoriaEstudiantilController::findModel(['cuadroid'=>$id]);
         
+=======
+        $trayectoria = TrayectoriaEstudiantil::findOne(['cuadroid'=>$id]);
+        $militanciaPolitica = MiitanciaPoliticCuadro::findOne(['cuadroid'=>$id]);
+       // return print_r($militanciaPolitica);
+>>>>>>> Stashed changes
         $searchModelEnfermedades = new \frontend\models\EnfermedadSaludSearch();
         $dataProviderEnfermedades = $searchModelEnfermedades->search(Yii::$app->request->queryParams);
         $dataProviderEnfermedades->query->andFilterWhere(['saludid'=>$this->findModel($id)->saludid]);
@@ -194,6 +219,7 @@ class CuadroController extends Controller
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
             'dataProvider' =>$dataProvider,
+            'militanciaPolitica' =>$militanciaPolitica,
             'searchModellugaresResidencias' => $searchModellugaresResidencias,
             'dataProviderlugaresResidencias' =>$dataProviderlugaresResidencias,
             'searchModelTrayectoriaEstudiantil' => $searchModelTrayectoriaEstudiantil,
@@ -1381,6 +1407,81 @@ class CuadroController extends Controller
         ]);}
     }
 
+    public function actionUpdatedatospersonales($id)
+    {
+        $model = $this->findModel($id);
+        if($model)
+        {
+          $modelPersona= $model->personaCI0;
+     
+        }else{
+            throw new \yii\web\ForbiddenHttpException('La información del Cuadro está defectuosa. Por favor contacte con el Administrador.');
+       
+        }
+        $oldfoto=$model->foto;
+        if ($model->load(Yii::$app->request->post()) && $modelPersona->load(Yii::$app->request->post())) 
+        {
+            $transaction = \Yii::$app->db->beginTransaction();
+          try{
+                $modelPersona->CI =  $model->personaCI ;     
+              if($modelPersona->save())
+              {
+           
+            $newfoto = UploadedFile::getInstance($model,'foto');
+            if(!empty($newfoto)&&$newfoto!=$model->foto)
+            {
+                $imagenName = trim($model->personaCI.Yii::$app->security->generateRandomString());  //guarda el nombre de la bebida para luego renombrar la imagen
+             
+                $model->file = $newfoto;
+                $model->foto = 'uploads/cuadros/fotos/'.$imagenName.'.'.$newfoto->extension; //es asignado al campo imagen modelo bebida la ruta, el nombre y la extencion que que se guardo la imagen
+                $model->file->saveAs('uploads/cuadros/fotos/'.$imagenName.'.'.$newfoto->extension); //guarda la imagen en la ruta proporcionada
+            }else{
+                $model->foto = $oldfoto;
+            }
+          
+                  if($model->save())
+                  {
+                      $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                  }else{
+
+
+                    $transaction->rollBack();
+                    return $this->render('updateDatospersonales', [
+                        'model' => $model,
+                        'modelPersona'=>$modelPersona,
+                    ]);
+                  }
+              
+                  
+              }else{
+                $transaction->rollBack();
+                return $this->render('updateDatospersonales', [
+                    'model' => $model,
+                    'modelPersona'=>$modelPersona,
+                ]);
+              }
+              
+          } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            } catch (\Throwable $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+            
+            
+        }else{
+
+            return $this->render('updateDatospersonales',['model'=>$model,
+                                                          'modelPersona'=>$modelPersona
+                                  ]); 
+        }
+        
+        
+      
+    }
+
     /**
      * Deletes an existing Cuadro model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -1540,7 +1641,7 @@ else {
               $model->fecha_inicio_cargo = date('Y-m-d');
               $model->ubicacion_tiempo_guerra = "sedergsoft";
               $model->saludid = 1;
-              $imagenName = trim($model->personaCI);  //guarda el nombre de la bebida para luego renombrar la imagen
+              $imagenName = trim($model->personaCI.Yii::$app->security->generateRandomString());  //guarda el nombre de la bebida para luego renombrar la imagen
             $model->file = UploadedFile::getInstance($model,'foto');
             $model->file->saveAs('uploads/cuadros/fotos/'.$imagenName.'.'.$model->file->extension); //guarda la imagen en la ruta proporcionada
             $model->foto = 'uploads/cuadros/fotos/'.$imagenName.'.'.$model->file->extension; //es asignado al campo imagen modelo bebida la ruta, el nombre y la extencion que que se guardo la imagen
@@ -2014,7 +2115,260 @@ else {
         ]);
     }
     
-    
+
+    public function actionUpdatedatoslaborales($id) 
+   {
+     $model = $this->findModel($id);
+     if($model->centro_trabajoid ==1)
+     {
+        $modelCentroTrab = new CentroTrabajo();
+        $modelDirCTA = new Direcciones();
+        $modelCargoActual  = new Cargo();
+        $modelDirectivo = new Directivo();
+     }else{
+
+         $modelCentroTrab = $model->centroTrabajo;
+         $modelDirCTA = $model->centroTrabajo->direcciones;
+         $modelCargoActual  = $model->cargo;
+         $modelDirectivo = new Directivo();
+        }
+   
+     
+    if($model->load(Yii::$app->request->post())&&
+       $modelCentroTrab->load(Yii::$app->request->post())&&
+       $modelDirCTA->load(Yii::$app->request->post())&&
+       $modelDirectivo->load(Yii::$app->request->post())&&
+       $modelCargoActual->load(Yii::$app->request->post())
+    )
+    {
+      $transaction = \Yii::$app->db->beginTransaction();
+          try{
+              if($modelDirCTA->save())
+              {
+                $modelCentroTrab->direccionesid = $modelDirCTA->id;
+                if($modelCargoActual->save()&&$modelCentroTrab->save())
+                {
+                    $model->cargoid = $modelCargoActual->id;
+                    $model->centro_trabajoid = $modelCentroTrab->id;
+                    if($modelDirectivo->active == 1) //compruebo si tiene trayectioria como directivo 
+                          {
+                                $modelDirectivo->scenario = 'CDirectivo'; //pongo el escenario crear directivo en el modelo directivo
+                                $validD = $modelDirectivo->validate(); //valido el modelo dirctivo
+                                if($validD)
+                                {
+                                  
+                                    $modelDirectivo->cuadroid = $model->id;
+                                    if(!$flag = $modelDirectivo->save())
+                                    {
+                                     $modelDirectivo->scenario = 'default';
+                                        $transaction->rollBack();
+                                                  
+                                    }
+                                }
+                                else{
+                                   // return print_r($modelDirectivo->errors);
+                                         Yii::$app->session->setFlash('error_validacion');
+                                          $modelDirectivo->scenario = 'default';
+                                        $transaction->rollBack();
+                                        $modelDirectivo->active = 0;
+                                        return $this->render('updatedatoslaborales',[
+                                            'model'=>$model,
+                                            'modelCentroTrab'=>$modelCentroTrab,
+                                            'modelDirCTA'=>$modelDirCTA,
+                                            'modelCargoActual'=>$modelCargoActual,
+                                            'modelDirectivo'=>$modelDirectivo,
+                                        ]);
+                                    }
+                           }      
+                    if($model->save())
+                    {
+                         $transaction->commit();
+                                return $this->redirect(['view', 'id' => $model->id]);
+                              
+                    }else{
+                       // return print_r($model->errors);
+                        $modelDirectivo->active = 0;
+                          $transaction->rollBack();
+                            return $this->render('updatedatoslaborales',[
+                                'model'=>$model,
+                                'modelCentroTrab'=>$modelCentroTrab,
+                                'modelDirCTA'=>$modelDirCTA,
+                                'modelCargoActual'=>$modelCargoActual,
+                                'modelDirectivo'=>$modelDirectivo,
+                            ]);
+                    }
+                    
+                }else{
+                    //return print_r($modelCargoActual);
+                    $modelDirectivo->active = 0;
+                      $transaction->rollBack();
+                        return $this->render('updatedatoslaborales',[
+                            'model'=>$model,
+                            'modelCentroTrab'=>$modelCentroTrab,
+                            'modelDirCTA'=>$modelDirCTA,
+                            'modelCargoActual'=>$modelCargoActual,
+                            'modelDirectivo'=>$modelDirectivo,
+                        ]);
+                    
+                    }
+              }else{
+                 // return print_r($modelDirCTA);
+                  $modelDirectivo->active = 0;
+                  $transaction->rollBack();
+                    return $this->render('updatedatoslaborales',[
+                        'model'=>$model,
+                        'modelCentroTrab'=>$modelCentroTrab,
+                        'modelDirCTA'=>$modelDirCTA,
+                        'modelCargoActual'=>$modelCargoActual,
+                        'modelDirectivo'=>$modelDirectivo,
+                    ]);
+                  }
+              
+          } catch (Exception $ex) {
+              $transaction->rollBack();
+          }
+        
+    }else{
+        $modelDirectivo->active = 0;
+        return $this->render('updatedatoslaborales',[
+            'model'=>$model,
+            'modelCentroTrab'=>$modelCentroTrab,
+            'modelDirCTA'=>$modelDirCTA,
+            'modelCargoActual'=>$modelCargoActual,
+            'modelDirectivo'=>$modelDirectivo,
+        ]);
+    }
+   }
+
+   public function actionUpdateestadosalud($id) 
+   {
+     $model = $this->findModel($id);
+     $modelsEnfermedad = [new Enfermedad];
+     if($model->saludid!=1)
+     {
+        $modelEnfermedad = EnfermedadSalud::findAll(['saludid'=>$model->saludid]);
+        
+        foreach ($modelEnfermedad as $key => $enfermedad) 
+        {
+            $modelsEnfermedad[] = $enfermedad->enfermedad;                                                
+        }
+        $modelSalud = $model->salud;
+      //  $modelLimitacionSalud = $model->salud->li    
+    }
+        
+     $modelSalud = new Salud();
+     $modelLimitaciones = new Limitaciones();
+     $modelLimitacionSalud = new LimitacionesSalud();
+     if($modelSalud->load(Yii::$app->request->post())&&$modelLimitaciones->load(Yii::$app->request->post()))
+     {
+         $modelsEnfermedad = Model::createMultiple(Enfermedad::classname()); //metodo que permite crear multiples instacias de un modelo
+         Model::loadMultiple($modelsEnfermedad, Yii::$app->request->post()); //metodo que carga las multiples intancias del modelo creado
+         $valid = Model::validateMultiple($modelsEnfermedad); 
+             //return print_r($modelSalud->getErrors());
+         if($valid && $model->validate())
+         {
+         $transaction = \Yii::$app->db->beginTransaction();
+          try{ 
+              if(!$flag = $modelSalud->save())
+              {
+                $transaction->rollBack();  
+                 return $this->render('updateestadosalud',[
+                         'model'=>$model,
+                         'modelSalud'=>$modelSalud,
+                         'modelLimitaciones' =>$modelLimitaciones,
+
+                         'modelsEnfermedad'=>(empty($modelsEnfermedad))?[new Enfermedad()]:$modelsEnfermedad,
+                     ]);  
+              }
+              if(!$flag = $modelLimitaciones->save())
+              {
+               $transaction->rollBack();  
+                 return $this->render('updateestadosalud',[
+                         'model'=>$model,
+                         'modelSalud'=>$modelSalud,
+                         'modelLimitaciones' =>$modelLimitaciones,
+
+                         'modelsEnfermedad'=>(empty($modelsEnfermedad))?[new Enfermedad()]:$modelsEnfermedad,
+                     ]);   
+              }else{
+              $modelLimitacionSalud->saludid = $modelSalud->id;
+              $modelLimitacionSalud->limitacionesid=$modelLimitaciones->id;
+               $flag = $modelLimitacionSalud->save();
+             
+              
+              }
+             foreach ($modelsEnfermedad as $Enfermedad) 
+                                {
+
+
+                                if (! ($flag = $Enfermedad->save(false))) { //si hubo algun error el el proceso de guardado revierto el proceso
+
+                                        $transaction->rollBack();
+                                         break;
+                                        }
+
+                                $modelEnfermedadSalud = new EnfermedadSalud();
+                                $modelEnfermedadSalud->saludid = $modelSalud->id;
+                                $modelEnfermedadSalud->enfermedadid = $Enfermedad->id;
+                                $modelEnfermedadSalud->save();    
+
+                            }
+                            if($flag)
+                            {
+                             $model->saludid = $modelSalud->id;
+                             if($model->save())
+                             {
+                                 
+                             $transaction->commit();
+                               return $this->redirect(['view', 'id' => $model->id]);
+                             }else{
+                                    return $this->render('updateestadosalud',[
+                                     'model'=>$model,
+                                     'modelSalud'=>$modelSalud,
+                                     'modelLimitaciones' =>$modelLimitaciones,
+
+                                     'modelsEnfermedad'=>(empty($modelsEnfermedad))?[new Enfermedad()]:$modelsEnfermedad,
+                                 ]); 
+                             }
+                             
+                            }
+                            else{
+                                
+                                    return $this->render('updateestadosalud',[
+                                     'model'=>$model,
+                                     'modelSalud'=>$modelSalud,
+                                     'modelLimitaciones' =>$modelLimitaciones,
+
+                                     'modelsEnfermedad'=>(empty($modelsEnfermedad))?[new Enfermedad()]:$modelsEnfermedad,
+                                 ]); 
+                            }
+             } catch (Exception $ex) {
+                                    $transaction->rollBack();
+                                  }
+         }else{
+            return $this->render('updateestadosalud',[
+             'model'=>$model,
+             'modelSalud'=>$modelSalud,
+             'modelLimitaciones' =>$modelLimitaciones,
+             
+             'modelsEnfermedad'=>(empty($modelsEnfermedad))?[new Enfermedad()]:$modelsEnfermedad,
+         ]);  
+         }
+     }else{
+         return $this->render('updateestadosalud',[
+             'model'=>$model,
+             'modelSalud'=>$modelSalud,
+             'modelLimitaciones' =>$modelLimitaciones,
+             
+             'modelsEnfermedad'=>(empty($modelsEnfermedad))?[new Enfermedad()]:$modelsEnfermedad,
+         ]);
+     }
+         
+     
+       
+   }
+
+   
   
 
 }

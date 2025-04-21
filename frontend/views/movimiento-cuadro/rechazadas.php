@@ -70,15 +70,30 @@ $this->params['tittle'][] = $this->title;
              'template' => '{view} {update}',
              'buttons'=>[
                             
+                            'view'=> function($url,$data)
+                                        {
+                                       
+                                                            return Html::a(
+                                                                            '<i class = "glyphicon glyphicon-eye-open" ></i>',
+                                                                            $url = Url::toRoute(['view', 'id' => $data['id']]),
+                                                                            
+                                                                             [
+                                                                                'class'=>'btn btn-info btn-xs', 
+                                                                                'title' => 'Ver propuesta ',
+                                                                               
+                                                                             ]
+                                                                            );    
+                                                           },
                             'update'=> function($url,$data)
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-refresh" style="right: -20px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-refresh" ></i>',
                                                                             $url = Url::toRoute(['movimiento-cuadro/update', 'id' => $data['id']]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Actualizar y reenviar propuesta ',
+                                                                                'class'=>'btn btn-primary btn-xs', 
+                                                                                'title' => 'Actualizar y reenviar propuesta ',
                                                                                  'data-confirm'=> 'Esta seguro que desea actualizar la propuesta de movimiento y volverla a enviar'
                                                                                
                                                                              ]

@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\EvaluacionCuadroSearch */
@@ -21,8 +22,8 @@ $this->params['tittle'][] = $this->title;
     <?php $form = ActiveForm::begin(['action'=>"/sisga/frontend/web/index.php/evaluacion-cuadro/evaluacionxcuadro"]); ?>
 
     <?= $form->field($model, 'id')->widget(Select2::classname(), [
-    'data' =>ArrayHelper::map(frontend\models\Cuadro::find()/*->where([])*/->orderBy('id')->asArray()->all(), 'id', 'personaCI'),
-    'options' => ['placeholder' => 'Seleciona el cuadro a mostrar ...'],
+    'data' =>Yii::$app->user->identity->rolid==2?ArrayHelper::map(frontend\models\Cuadro::find()/*->where([])*/->orderBy('id')->asArray()->all(), 'id', 'personaCI'):ArrayHelper::map(frontend\models\Cuadro::find()->andFilterWhere(['entidadid'=>Yii::$app->user->identity->direccionid])->orderBy('id')->asArray()->all(), 'id', 'personaCI'),
+    'options' => ['placeholder' => 'Selecione el cuadro a mostrar ...'],
     'pluginOptions' => [
         'allowClear' => true
     ],
@@ -91,7 +92,24 @@ $this->params['tittle'][] = $this->title;
             ],
            
 
-            ['class' => 'yii\grid\ActionColumn',  'template'=>'{view}'],
+            ['class' => 'yii\grid\ActionColumn','template'=>'{view}',
+              
+                'buttons'=>[
+                  'view' => function ($url, $data){
+                    return Html::a( '<i class="glyphicon glyphicon-eye-open"></i>',
+                    $url = Url::toRoute(['view', 'id' => $data['id']]),
+                                                                       
+                                                                        [
+                                                                           'class' => 'btn btn-primary btn-xs',
+                                                                             
+                                                                        ] 
+                            ); 
+         
+                     },
+                ]
+
+              
+            ],
         ],
     ]); ?>
 </div>

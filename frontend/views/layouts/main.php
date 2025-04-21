@@ -366,6 +366,17 @@ $baseUrl = $asset->baseUrl;
              }
             if(Yii::$app->user->identity->rolid == "6")//menu que se muestra para el usuario Gestor de Cuadros
              {
+<<<<<<< Updated upstream
+=======
+            $menuItems[] = ['label' => 'Mostrar ',
+                            'items' =>[
+                                  
+                              ['label' => 'Plantillas', 'url' => ['/plantilla/index']],
+                             //   ['label' => 'Dirección Jurídica', 'url' => ['/indicadoresgestion/llenar','id'=>3]], 
+                               // ['label' => 'Dirección de Economía, Contabilidad y Finanzas', 'url' => ['/indicadoresgestion/llenar','id'=>8]], 
+                               // ['label' => 'Dirección Supervisión y Control Interno', 'url' => ['/indicadoresgestion/llenar','id'=>13]], 
+                                ]];
+>>>>>>> Stashed changes
            /* $menuItems[] = ['label' => 'Llenar indicadores ',
                             'items' =>[
                                   
@@ -384,16 +395,14 @@ $baseUrl = $asset->baseUrl;
                                  // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],
                                   ]];
       
-         
-                $menuItems[] = ['label' => 'Ver Cumplimiento',
+         */
+                $menuItems[] = ['label' => 'Reservas',
                             'items' =>[
-                                ['label' => 'Evaluación del Objetivo', 'url' => ['/objetivo/evaluar']],
-                                  ['label' => 'Criterio Medida', 'url' => ['/evaluacion/indexall']],
-                                ['label' => 'Indicadores de Gestión', 'url' => ['/cumplimiento/indexall']],
-                                 
-                                 //['label' => 'Compromiso', 'url' => ['/compromiso/index']],
-                                 // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],
-                                  ]];*/
+                                ['label' => 'Ver reservas', 'url' => ['/cuadro/reservas']],
+                                  ['label' => 'Definir Reservas', 'url' => ['/reserva-cuadro/definir']],
+                                ['label' => 'Composicion de la Reserva', 'url' => ['/reserva-cuadro/composicion']],
+                               
+                                  ]];
                  $menuItems[] = ['label' => 'Cuadros',
                             'items' =>[
                                 ['label' => 'Agregar Cuadro', 'url' =>['/cuadro/createwiz']] ,                                 
@@ -478,6 +487,13 @@ $baseUrl = $asset->baseUrl;
                                  //['label' => 'Compromiso', 'url' => ['/compromiso/index']],
                                  // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],
                                   ]];*/
+                  $menuItems[] = ['label' => 'Reservas',
+                                  'items' =>[
+                                      ['label' => 'Ver reservas', 'url' => ['/cuadro/reservas']],
+                                        ['label' => 'Definir Reservas', 'url' => ['/reserva-cuadro/definir']],
+                                      ['label' => 'Composicion de la Reserva', 'url' => ['/reserva-cuadro/composicion']],
+                                     
+                                        ]];
                  $menuItems[] = ['label' => 'Cuadros',
                             'items' =>[
                                // ['label' => 'Agregar Cuadro', 'url' =>['/cuadro/create']] ,                                 

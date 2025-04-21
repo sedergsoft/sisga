@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\EvaluacionCuadroSearch */
@@ -48,7 +49,7 @@ $this->params['tittle'][] = $this->title;
             ],
              [
             'attribute'=>'periodoEvaluado.Desde',
-            'label' => 'Segudo Apellido',
+            'label' => 'Periodo',
                  'value'=> function ($model) 
                  {
     
@@ -62,7 +63,24 @@ $this->params['tittle'][] = $this->title;
             ],
            
 
-            ['class' => 'yii\grid\ActionColumn',  'template'=>'{view}'],
+            ['class' => 'yii\grid\ActionColumn','template'=>'{view}',
+              
+            'buttons'=>[
+              'view' => function ($url, $data){
+                return Html::a( '<i class="glyphicon glyphicon-eye-open"></i>',
+                $url = Url::toRoute(['view', 'id' => $data['id']]),
+                                                                   
+                                                                    [
+                                                                       'class' => 'btn btn-primary btn-xs',
+                                                                         
+                                                                    ] 
+                        ); 
+     
+                 },
+            ]
+
+          
+        ],
         ],
     ]); ?>
 </div>

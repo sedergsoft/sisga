@@ -3,9 +3,18 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use daxslab\thumbnailer\Thumbnailer;
+<<<<<<< Updated upstream
+=======
+use frontend\controllers\CuadroController;
+use frontend\models\LimitacionesSalud;
+use kartik\dropdown\DropdownX;
+>>>>>>> Stashed changes
 use kartik\grid\GridView;
 use yii\helpers\Url;
 use yii\bootstrap\Alert;
+use yii\bootstrap\ButtonDropdown;
+use yii\bootstrap\Dropdown;
+
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Cuadro */
 
@@ -24,21 +33,10 @@ $this->params['tittle'][]= $this->title;
            echo Alert::widget(['options' => ['class' => $style], 'body' => $mensaje]);
         ?>
     <?php endif; ?>
-    
 
-                <?php 
-//                
-//                $residencia = frontend\models\LugaresResidencia::find()->where(['cuadroId'=>$model->id])->one();
-//                                       // $residencia->find(['cuadroId'=>$model->id,/*'actual'=>1*/]);
-//                                        return print_r($residencia->direcciones->calle);                    
-//                                       // return $residencia->direcciones->calle;
-                                          
-   ?>
-
-    <p>
-       
-        
-        <?php if(Yii::$app->user->identity->rolid == "6")
+<div class="row">
+    <div class="col-lg-6">
+    <?php if(Yii::$app->user->identity->rolid == "6")
         {
            echo Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -46,9 +44,35 @@ $this->params['tittle'][]= $this->title;
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
-        ]);} ?>
-    </p>
-
+        ]);
+        ?>
+        
+        <?php 
+            }?>
+    </div>
+    <div class="col-lg-6">
+    <div class="pull-right">
+        
+       
+        
+        <?= ButtonDropdown::widget(['label' => Html::tag('i',' ',['class'=>'glyphicon glyphicon-edit']). ' Editar',
+        'dropdown' => [
+            'items' => [['label' => 'Datos del Cuadro', 'url' => Url::to(['updatedatospersonales','id'=>$model->id])],
+                        ['label' => 'Preparación Intelectual', 'url' => Url::to(['preparacion-intelectual/update','cuadroid'=>$model->id,'id'=>$model->preparacion_intelectualid])],
+                        ['label' => 'Datos Laborales', 'url' => Url::to(['updatedatoslaborales','id'=>$model->id])],
+                        ['label' => 'Información def salud', 'url' => Url::to(['updateestadosalud','id'=>$model->id])],
+                        ],
+                    ],
+        'options'=>['class'=> 'btn btn-warning'],
+        'encodeLabel'=>false,
+                ]); 
+            ?>
+        </div>
+    </div>
+</div>
+ 
+    
+<div>
    <?php echo DetailView::widget([
     'model'=>$model,
     'condensed'=>true,
@@ -62,7 +86,7 @@ $this->params['tittle'][]= $this->title;
     'attributes'=>[
                     [
                     'group'=> true,
-                    'label'=>'<center style="color: #3c763d"><h1 class="panel-title"><i class="glyphicon glyphicon-calendar"></i> Fecha de ejecución</h1></center>',
+                    'label'=>'<center style="color: #3c763d"><h1 class="panel-title"><i class="glyphicon glyphicon-user"></i> Información Personal</h1></center>',
                     'rowOptions'=>['class'=>DetailView::TYPE_SUCCESS]
                     ],
                     [
@@ -70,6 +94,7 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'personaCI',
                                     'label'=>'Primer Apellido',
+                                    'labelColOptions'=>['style'=>'width:20%'],
                                     'value'=>$model->personaCI0->primer_apellido,
                                     'valueColOptions'=>['style'=>'width:20%'],
                                     'displayOnly'=>true
@@ -78,19 +103,22 @@ $this->params['tittle'][]= $this->title;
                                     'attribute'=>'personaCI',
                                     'label'=>'Segundo Apellido',
                                     'value'=>$model->personaCI0->segundo_apellido,
-                                    'valueColOptions'=>['style'=>'width:2%'],
+                                    'valueColOptions'=>['style'=>'width:20%'],
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'personaCI',
                                     'label'=>'Nombre(s)',
                                     'value'=>$model->personaCI0->Nombre,
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'valueColOptions'=>['style'=>'width:40%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'personaCI',
                                     'label'=>'Foto',
+                                    'labelColOptions'=>['style'=>'width:10%'],
                                     'format'=>'raw',    
                                     'value'=> '<img class="etalage_thumb_image" src="'. Yii::$app->request->baseUrl.'/'.$model->foto.'"style="width: 100px;height: 100px;"/>',
                                    // 'value'=> Html::img(Yii::$app->thumbnailer->get(Yii::$app->request->baseUrl.'/'.$model->foto, 400, 400, 10)), 
@@ -105,36 +133,41 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'personaCI',
                                     'label'=>'Numero de Idenditad',
+                                    'labelColOptions'=>['style'=>'width:20%'],
                                     'value'=>$model->personaCI0->CI,
-                                    //'valueColOptions'=>['style'=>'width:10%'],
+                                    'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'personaCI',
                                     'label'=>'Sexo',
+                                    'labelColOptions'=>['style'=>'width:5%'],
                                     'value'=>$model->personaCI0->sexo == 0? 'M':'F',
-                                   // 'valueColOptions'=>['style'=>'width:5%'],
+                                    'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'color_piel',
                                     'label'=>'Color de Piel',
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'value'=>$model->color_piel == 0? 'B':($model->color_piel == 1? 'M':($model->color_piel == 2? 'N':'A')),
-                                    //'valueColOptions'=>['style'=>'width:20%'],
+                                    'valueColOptions'=>['style'=>'width:5%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'color_ojos',
                                     'label'=>'Color de Ojos',
+                                    'labelColOptions'=>['style'=>'width:10%'],
                                     'value'=>$model->color_ojos,
-                                    //'valueColOptions'=>['style'=>'width:20%'],
+                                    'valueColOptions'=>['style'=>'width:8%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'color_pelo',
                                     'label'=>'Color de Pelo',
+                                    'labelColOptions'=>['style'=>'width:10%'],
                                     'value'=>$model->color_pelo,
-                                    //'valueColOptions'=>['style'=>'width:30%'],
+                                    'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
                                     
@@ -148,6 +181,7 @@ $this->params['tittle'][]= $this->title;
                                     'attribute'=>'estatura',
                                     'label'=>'Estatura',
                                     'value'=>$model->estatura,
+                                    'labelColOptions'=>['style'=>'width:10%'],
                                     'valueColOptions'=>['style'=>'width:5%'],
                                     'displayOnly'=>true
                                     ],
@@ -155,12 +189,14 @@ $this->params['tittle'][]= $this->title;
                                     'attribute'=>'peso',
                                     'label'=>'Peso',
                                     'value'=>$model->peso,
+                                    'labelColOptions'=>['style'=>'width:10%'],
                                     'valueColOptions'=>['style'=>'width:5%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'Lugar_nacimiento',
                                     'label'=>'Lugar De nacimiento',
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'value'=> frontend\models\Municipio::findOne($model->Lugar_nacimiento)->municipio,
                                     'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
@@ -170,12 +206,14 @@ $this->params['tittle'][]= $this->title;
                                     'attribute'=>'provinciaid',
                                     'label'=>'Prov. de nacimiento',
                                     'value'=>$model->provincia->provincia,
-                                    'valueColOptions'=>['style'=>'width:25%'],
+                                    'labelColOptions'=>['style'=>'width:15%'],
+                                    'valueColOptions'=>['style'=>'width:20%'],
                                     'displayOnly'=>true
                                     ],
                                     [
                                     'attribute'=>'ciudadania',
                                     'label'=>'Ciudadania',
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     //'value'=>$model->ciudadania,
                                     'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
@@ -193,29 +231,49 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Calle',
+<<<<<<< Updated upstream
                                     'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->calle,
+=======
+                                    'labelColOptions'=>['style'=>'width:15%'],
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->calle:"",
+>>>>>>> Stashed changes
                                          'displayOnly'=>true
                                     ],
                             
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Número',
+<<<<<<< Updated upstream
                                     'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->numero,
                                     // 'valueColOptions'=>['style'=>'width:10%'],
+=======
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->numero:"",
+                                    'labelColOptions'=>['style'=>'width:15%'],
+>>>>>>> Stashed changes
                                    // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
                             [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Edificio',
+<<<<<<< Updated upstream
                                     'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->edif,
+=======
+                                    'labelColOptions'=>['style'=>'width:15%'],
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->edif:'',
+>>>>>>> Stashed changes
                                      // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
                              [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Apto.',
+<<<<<<< Updated upstream
                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->apto,
+=======
+                                    'labelColOptions'=>['style'=>'width:15%'],
+                                   'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->apto:'',
+>>>>>>> Stashed changes
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
@@ -231,14 +289,20 @@ $this->params['tittle'][]= $this->title;
                                     'label'=>'Piso.',
                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->piso,
                                     // 'valueColOptions'=>['style'=>'width:10%'],
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                             
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Entre calle uno',
+<<<<<<< Updated upstream
                                     'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_uno,
                                     // 'valueColOptions'=>['style'=>'width:10%'],
+=======
+                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_uno:'',
+                                    'labelColOptions'=>['style'=>'width:15%'],
+>>>>>>> Stashed changes
                                     'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
@@ -247,6 +311,7 @@ $this->params['tittle'][]= $this->title;
                                     'label'=>'Entre Calle Dos',
                                     'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_dos,
                                     'valueColOptions'=>['style'=>'width:15%'],
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                              [
@@ -254,6 +319,7 @@ $this->params['tittle'][]= $this->title;
                                     'label'=>'Reparto.',
                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->Reparto,
                                     // 'valueColOptions'=>['style'=>'width:10%'],
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                             
@@ -268,6 +334,7 @@ $this->params['tittle'][]= $this->title;
                                     'label'=>'Municipio',
                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->municipio->municipio,
                                      'valueColOptions'=>['style'=>'width:15%'],
+                                     'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                             
@@ -277,6 +344,7 @@ $this->params['tittle'][]= $this->title;
                                     'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->provincia->provincia,
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                    'valueColOptions'=>['style'=>'width:15%'],
+                                   'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                                     [
@@ -285,6 +353,7 @@ $this->params['tittle'][]= $this->title;
                                     'value'=>$model->telefono,
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                    'valueColOptions'=>['style'=>'width:15%'],
+                                   'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                                     [
@@ -293,6 +362,7 @@ $this->params['tittle'][]= $this->title;
                                     'value'=>$model->email,
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                    'valueColOptions'=>['style'=>'width:15%'],
+                                   'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                        
@@ -315,6 +385,7 @@ $this->params['tittle'][]= $this->title;
                                     'label'=>'Nivel Escolaridad',
                                     'value'=>$model->preparacionIntelectual->nivelEscolaridad->tipo,
                                     'valueColOptions'=>['style'=>'width:15%'],
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                             [
@@ -322,13 +393,15 @@ $this->params['tittle'][]= $this->title;
                                     'label'=>'Especialidad',
                                     'value'=>$model->preparacionIntelectual->Especialidad,
                                    // 'valueColOptions'=>['style'=>'width:10%'],
+                                   'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                             [
                                     'attribute'=>'preparacion_intelectualid',
                                     'label'=>'Categoria docente',
-                                    'value'=>$model->preparacionIntelectual->gradoCientifico->tipo,
+                                    'value'=>$model->preparacionIntelectual->categoriaDocente->tipo,
                                    // 'valueColOptions'=>['style'=>'width:10%'],
+                                   'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                              [
@@ -336,6 +409,7 @@ $this->params['tittle'][]= $this->title;
                                     'label'=>'Grado Cientifico',
                                     'value'=>$model->preparacionIntelectual->gradoCientifico->tipo,
                                    // 'valueColOptions'=>['style'=>'width:10%'],
+                                   'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                             
@@ -350,13 +424,14 @@ $this->params['tittle'][]= $this->title;
                                    // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],                            
-                                        /* [
+                                         [
                                     'attribute'=>'preparacion_intelectualid',
-                                    'label'=>'Nivel Informático',
-                                    'value'=>$model->preparacionIntelectual->preparacionIntelectualIdiomas->idiomasid,
+                                    'label'=>'Militancia Politica',
+                                    'value'=>$militanciaPolitica!=null?$militanciaPolitica->miitanciaPolitic->tipo:'Sin Militancia',
                                     'valueColOptions'=>['style'=>'width:10%'],
+                                    'labelColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
-                                    ],*/
+                                    ],
                               
                                     ]                      
                         ],
@@ -449,6 +524,7 @@ $this->params['tittle'][]= $this->title;
        
                                     },
                                     'valueColOptions'=>['style'=>'width:20%'],
+                                    'labelColOptions'=>['style'=>'width:5%'],
                                     'displayOnly'=>true
                                     ],
                             
@@ -479,10 +555,17 @@ $this->params['tittle'][]= $this->title;
                                     'displayOnly'=>true
                                     ],
                                     [
-                                    'attribute'=>'$fecha_inicio_cargo',
-                                    'label'=>'Fecha Ocupación',
-                                    'value'=>$model->fecha_inicio_cargo,
-                                    'valueColOptions'=>['style'=>'width:20%'],
+                                        'attribute'=>'$fecha_inicio_cargo',
+                                        'label'=>'Fecha Ocupación',
+                                        'value'=>$model->fecha_inicio_cargo,
+                                        'valueColOptions'=>['style'=>'width:20%'],
+                                        'displayOnly'=>true
+                                    ],
+                                    [
+                                    'attribute'=>'cargoid',
+                                    'label'=>'Reserva de Cuadro',
+                                    'value'=>$model->reserva_cuadro==1?'SI':'NO',
+                                    'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],
                                     [
@@ -521,7 +604,7 @@ $this->params['tittle'][]= $this->title;
                    
 ]);
 ?> 
-   
+ </div>  
     <div>
        
         <?= GridView::widget([
@@ -546,11 +629,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-refresh" style="right: -20px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-refresh" ></i>',
                                                                             $url = Url::toRoute(['enfermedad/update', 'id' => $model->enfermedadid,'saludid'=>$model->salud->id]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Actualizar enfermedades ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Actualizar enfermedades ',
                                                                                  'data-confirm'=> 'Esta seguro que desea actualizar las enfermedades'
                                                                                
                                                                              ]
@@ -560,13 +644,14 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-trash"></span',
+                                                                            '<i class = "glyphicon glyphicon-trash"></i>',
                                                                             $url = Url::toRoute(['enfermedad/delete', 'id' => $model->enfermedadid,'saludid'=>$model->salud->id]),
                                                                             
                                                                              
                                                                                  
                                                                                  [
                                                                                    'title'=> 'Eliminar enfermedad',
+                                                                                   'class'=>'btn btn-danger btn-xs', 
                                                                                'data' => [
                                                                                 'confirm' => Yii::t('app', 'Esta seguro que desea Eliminar esta enfermedad.'),
                                                                                 'method' => 'post',
@@ -611,11 +696,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit""></i>',
                                                                             $url = Url::toRoute(['trayectoria-laboral/update', 'id' => $model->id,'cuadroid'=>$model->cuadroid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar trayectoria laboral ',
+                                                                                'class'=>'btn btn-primary btn-xs', 
+                                                                                'title' => 'Editar trayectoria laboral ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar la trayectoria'
                                                                                
                                                                              ]
@@ -665,11 +751,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit""></i>',
                                                                             $url = Url::toRoute(['lugares-residencia/update', 'id' => $model->id,'cuadroid'=>$model->cuadroid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Lugar de Residencia ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Editar Lugar de Residencia ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este lugar de residencia'
                                                                                
                                                                              ]
@@ -710,11 +797,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit""></i>',
                                                                             $url = Url::toRoute(['trayectoria-estudiantil-centro-estudios/update', 'trayectoria_estudiantilid' => $model->trayectoria_estudiantilid,'centro_estudiosid'=>$model->centro_estudiosid,'cuadroid'=>$model->trayectoriaEstudiantil->cuadroid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Centro de Estudios ',
+                                                                                'class'=>'btn btn-primary btn-xs', 
+                                                                                'title' => 'Editar Centro de Estudios ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este centro de estudios'
                                                                                
                                                                              ]
@@ -757,11 +845,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit""></i>',
                                                                             $url = Url::toRoute(['cuadro-escuela-politica/update', 'id' => $model->id,'cuadroid'=>$model->cuadroid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Escuelas Políticas Cursadas ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Editar Escuelas Políticas Cursadas ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar esta Escuela Política'
                                                                                
                                                                              ]
@@ -883,11 +972,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit""></i>',
                                                                             $url = Url::toRoute(['preparacion-militar/update', 'id' => $model->id,'cuadroid'=>$model->trayectoria_militarid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Escuelas Políticas Cursadas ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Editar Escuelas Políticas Cursadas ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar esta Escuela Política'
                                                                                
                                                                              ]
@@ -930,11 +1020,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit""></i>',
                                                                             $url = Url::toRoute(['estancia-exterior/update', 'id' => $model->id]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar viajes al Exterior',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Editar viajes al Exterior',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este viaje'
                                                                                
                                                                              ]
@@ -975,11 +1066,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit"></i>',
                                                                             $url = Url::toRoute(['condecoraciones/update', 'id' => $model->id]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Escuelas Políticas Cursadas ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Editar Escuelas Políticas Cursadas ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar esta información'
                                                                                
                                                                              ]
@@ -1022,11 +1114,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit""></span',
+                                                                            '<i class = "glyphicon glyphicon-edit"></i>',
                                                                             $url = Url::toRoute(['sanciones/update', 'id' => $model->sancionesid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Sanciones ',
+                                                                                'class'=>'btn btn-primary btn-xs', 
+                                                                                'title' => 'Editar Sanciones ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar esta sanción'
                                                                                
                                                                              ]
@@ -1068,12 +1161,13 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-trash" style="right: -40px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-trash" ></i>',
                                                                             $url = Url::toRoute(['vehiculo/delete', 'id' => $model->id,'cuadroid'=>$model->cuadroid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Vehículo ',
-                                                                                 'data-confirm'=> 'Esta seguro que desea Editar este vehículo',
+                                                                                'class'=>'btn btn-danger btn-xs', 
+                                                                                'title' => 'Eliminar Vehículo ',
+                                                                                 'data-confirm'=> 'Esta seguro que desea Eliminar este vehículo',
                                                                                  'method'=>'POST',
                                                                              ]
                                                                             );    
@@ -1082,11 +1176,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit" style="right: -20px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-edit" ></i>',
                                                                             $url = Url::toRoute(['vehiculo/update', 'id' => $model->id]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Vehículo ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Editar Vehículo ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este vehículo'
                                                                                
                                                                              ]
@@ -1127,11 +1222,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-trash" style="right: -40px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-trash"></i>',
                                                                             $url = Url::toRoute(['armas/delete', 'id' => $model->id,'cuadroid'=>$model->cuadroid]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Eliminar Arma ',
+                                                                                'class'=>'btn btn-danger btn-xs', 
+                                                                                'title' => 'Eliminar Arma ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Elimimar esta Arma',
                                                                                  'method'=>'POST',
                                                                              ]
@@ -1141,11 +1237,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit" style="right: -20px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-edit" ></i>',
                                                                             $url = Url::toRoute(['armas/update', 'id' => $model->id]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Arma ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Editar Arma ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar esta Arma'
                                                                                
                                                                              ]
@@ -1225,11 +1322,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit" style="right: 0px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-edit"></i>',
                                                                             $url = Url::toRoute(['familiar/update', 'id' => $model->familiarid,]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Familiar ',
+                                                                                'class'=>'btn btn-info btn-xs', 
+                                                                                'title' => 'Editar Familiar ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este familiar',
                                                                                  'method'=>'post',
                                                                              ]
@@ -1239,11 +1337,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-plane" style="left: 10px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-plane" i"></i>',
                                                                             $url = Url::toRoute(['viajes-familiares/create', 'familiarid' => $model->familiarid,]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Agregar viaje ',
+                                                                                'class'=>'btn btn-success btn-xs',  
+                                                                                'title' => 'Agregar viaje ',
                                                                                  'data-confirm'=> 'Esta seguro que desea agregar un viaje a este familiar?',
                                                                                  'method'=>'post',
                                                                              ]
@@ -1253,11 +1352,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-exclamation-sign" style="left: 20px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-exclamation-sign" ></i>',
                                                                             $url = Url::toRoute(['sancionados/create', 'familiarid' => $model->familiarid,]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Agregar Sanción ',
+                                                                                'class'=>'btn btn-warning btn-xs',  
+                                                                                'title' => 'Agregar Sanción ',
                                                                                  'data-confirm'=> 'Esta seguro que desea agregar una sanción a este familiar?',
                                                                                  'method'=>'post',
                                                                              ]
@@ -1267,11 +1367,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-home" style="left: 30px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-home" ;"></i>',
                                                                             $url = Url::toRoute(['familiares-exterior/create', 'familiarid' => $model->familiarid,]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Agregar Residencia Exterior ',
+                                                                                'class'=>'btn btn-primary btn-xs',  
+                                                                                'title' => 'Agregar Residencia Exterior ',
                                                                                  'data-confirm'=> 'Esta seguro que desea agregar una Residencia en el exterior a este familiar?',
                                                                                  'method'=>'post',
                                                                              ]
@@ -1280,8 +1381,9 @@ $this->params['tittle'][]= $this->title;
                             'delete'=> function($url,$model)
                                         {
                                        
-                                                            return Html::a( '<span class = "glyphicon glyphicon-trash" style="left: 40px;"></span',
+                                                            return Html::a( '<i class = "glyphicon glyphicon-trash"></i>',
                                                                             ['familiar/delete', 'id' => $model->familiarid], [
+                                                                                'class'=>'btn btn-danger btn-xs', 
                                                                                    'title'=> 'Eliminar Familiar',
                                                                                'data' => [
                                                                                 'confirm' => Yii::t('app', 'Esta seguro que desea eliminar esta persona'),
@@ -1442,11 +1544,12 @@ $this->params['tittle'][]= $this->title;
                                         {
                                        
                                                             return Html::a(
-                                                                            '<span class = "glyphicon glyphicon-edit" style="right: 0px;"></span',
+                                                                            '<i class = "glyphicon glyphicon-edit"></i>',
                                                                             $url = Url::toRoute(['cuadro-ingresos-monetarios/update', 'id' => $model->id,]),
                                                                             
                                                                              [
-                                                                                 'title' => 'Editar Ingreso Montario ',
+                                                                                'class'=>'btn btn-primary btn-xs', 
+                                                                                'title' => 'Editar Ingreso Montario ',
                                                                                  'data-confirm'=> 'Esta seguro que desea Editar este Ingreso Montario',
                                                                                  'method'=>'post',
                                                                              ]
@@ -1455,9 +1558,10 @@ $this->params['tittle'][]= $this->title;
                  'delete'=> function($url,$model)
                                         {
                                        
-                                                            return Html::a( '<span class = "glyphicon glyphicon-trash" style="left: 40px;"></span',
+                                                            return Html::a( '<i class = "glyphicon glyphicon-trash""></i>',
                                                                             ['cuadro-ingresos-monetarios/delete', 'id' => $model->id], [
                                                                                    'title'=> 'Eliminar Ingreso Montario',
+                                                                                   'class'=>'btn btn-danger btn-xs', 
                                                                                'data' => [
                                                                                 'confirm' => Yii::t('app', 'Esta seguro que desea eliminar este Ingreso Montario'),
                                                                                 'method' => 'post',

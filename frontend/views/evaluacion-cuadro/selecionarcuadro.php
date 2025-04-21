@@ -18,8 +18,8 @@ $this->params['tittle'][]= $this->title;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id')->widget(Select2::classname(), [
-    'data' =>ArrayHelper::map(frontend\models\cuadro::find()/*->where([])*/->orderBy('id')->asArray()->all(), 'id', 'personaCI'),
-    'options' => ['placeholder' => 'Seleciona el cuadro a mostrar ...'],
+    'data' =>Yii::$app->user->identity->rolid==2?ArrayHelper::map(frontend\models\Cuadro::find()/*->where([])*/->orderBy('id')->asArray()->all(), 'id', 'personaCI'):ArrayHelper::map(frontend\models\Cuadro::find()->andFilterWhere(['entidadid'=>Yii::$app->user->identity->direccionid])->orderBy('id')->asArray()->all(), 'id', 'personaCI'),
+    'options' => ['placeholder' => 'Selecione el cuadro a mostrar ...'],
      
     'pluginOptions' => [
         'allowClear' => true

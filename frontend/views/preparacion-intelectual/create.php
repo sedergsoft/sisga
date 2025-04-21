@@ -5,13 +5,17 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\PreparacionIntelectual */
 
-$this->title = Yii::t('app', 'Create Preparacion Intelectual');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Preparacion Intelectuals'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('app', 'Crear Preparación Intelectual: NI - {name}', [
+    'name' => $cuadro->personaCI,
+]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Cuadros'), 'url' => ['cuadro/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Cuadro:NI - '.$cuadro->personaCI), 'url' => ['cuadro/view','id'=>$cuadro->id]];
+
+$this->params['breadcrumbs'][] = $this->title;;
+$this->params['tittle'][] = $this->title;
 ?>
 <div class="preparacion-intelectual-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -72,7 +72,21 @@ $this->params['tittle'][] = $this->title;
          
 
      <?php
-   $sql = 'SELECT DISTINCT calificacion.calificacion,(SELECT COUNT(evaluacion_cuadro.resultado_evaluacion) FROM evaluacion_cuadro WHERE evaluacion_cuadro.resultado_evaluacion = calificacion.id AND evaluacion_cuadro.ultima = 1) AS total FROM calificacion';
+     if(Yii::$app->user->identity->rolid!=2)
+     {
+      $entidad = Yii::$app->user->identity->direccionid;
+        $sql = 'SELECT DISTINCT calificacion.calificacion,(SELECT COUNT(evaluacion_cuadro.resultado_evaluacion) FROM evaluacion_cuadro WHERE evaluacion_cuadro.resultado_evaluacion = calificacion.id AND evaluacion_cuadro.ultima = 1 and evaluacion_cuadro.status=1 and entidadid = '.$entidad.') AS total FROM calificacion';
+        $sql1 = 'SELECT DISTINCT tipo_proyeccion.tipo,(SELECT COUNT(proyeccion.tipo_proyeccionid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_proyeccionid = tipo_proyeccion.id AND evaluacion_cuadro.ultima = 1 AND evaluacion_cuadro.status=1 and entidadid = '.$entidad.') AS total FROM tipo_proyeccion';
+        $sql3 = 'SELECT DISTINCT tipo_movimiento.tipo_movimiento,(SELECT COUNT(proyeccion.tipo_movimientoid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_movimientoid = tipo_movimiento.id AND evaluacion_cuadro.ultima = 1 and evaluacion_cuadro.status=1 and entidadid = '.$entidad.') AS total FROM tipo_movimiento';
+        $sql4 = 'SELECT DISTINCT tipo_reserva.tipo,(SELECT COUNT(reserva.tipo ) FROM evaluacion_cuadro INNER JOIN reserva ON evaluacion_cuadro.reservaid = reserva.id WHERE reserva.tipo = tipo_reserva.id AND evaluacion_cuadro.ultima = 1 and evaluacion_cuadro.status=1 and entidadid = '.$entidad.') AS total FROM tipo_reserva';
+        
+      }else{
+         $sql = 'SELECT DISTINCT calificacion.calificacion,(SELECT COUNT(evaluacion_cuadro.resultado_evaluacion) FROM evaluacion_cuadro WHERE evaluacion_cuadro.resultado_evaluacion = calificacion.id AND evaluacion_cuadro.ultima = 1 and evaluacion_cuadro.status=1) AS total FROM calificacion';
+         $sql1 = 'SELECT DISTINCT tipo_proyeccion.tipo,(SELECT COUNT(proyeccion.tipo_proyeccionid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_proyeccionid = tipo_proyeccion.id AND evaluacion_cuadro.ultima = 1 AND evaluacion_cuadro.status=1) AS total FROM tipo_proyeccion';
+         $sql3 = 'SELECT DISTINCT tipo_movimiento.tipo_movimiento,(SELECT COUNT(proyeccion.tipo_movimientoid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_movimientoid = tipo_movimiento.id AND evaluacion_cuadro.ultima = 1 and evaluacion_cuadro.status=1) AS total FROM tipo_movimiento';
+         $sql4 = 'SELECT DISTINCT tipo_reserva.tipo,(SELECT COUNT(reserva.tipo ) FROM evaluacion_cuadro INNER JOIN reserva ON evaluacion_cuadro.reservaid = reserva.id WHERE reserva.tipo = tipo_reserva.id AND evaluacion_cuadro.ultima = 1 and evaluacion_cuadro.status=1) AS total FROM tipo_reserva';
+         
+     }
    $rawData = Yii::$app->db->createCommand($sql)->queryAll();
    if($rawData)
    {
@@ -141,8 +155,7 @@ $this->params['tittle'][] = $this->title;
 ?>
     
      <?php
-   $sql = 'SELECT DISTINCT tipo_proyeccion.tipo,(SELECT COUNT(proyeccion.tipo_proyeccionid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_proyeccionid = tipo_proyeccion.id AND evaluacion_cuadro.ultima = 1) AS total FROM tipo_proyeccion';
-   $rawData = Yii::$app->db->createCommand($sql)->queryAll();
+   $rawData = Yii::$app->db->createCommand($sql1)->queryAll();
    if($rawData)
    {
    $total_data = [];
@@ -212,8 +225,7 @@ $this->params['tittle'][] = $this->title;
     
     
      <?php
-   $sql = 'SELECT DISTINCT tipo_movimiento.tipo_movimiento,(SELECT COUNT(proyeccion.tipo_movimientoid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_movimientoid = tipo_movimiento.id AND evaluacion_cuadro.ultima = 1) AS total FROM tipo_movimiento';
-   $rawData = Yii::$app->db->createCommand($sql)->queryAll();
+   $rawData = Yii::$app->db->createCommand($sql3)->queryAll();
    if($rawData)
    {
    $total_data = [];
@@ -281,8 +293,7 @@ $this->params['tittle'][] = $this->title;
 ?>
     
      <?php
-   $sql = 'SELECT DISTINCT tipo_reserva.tipo,(SELECT COUNT(reserva.tipo ) FROM evaluacion_cuadro INNER JOIN reserva ON evaluacion_cuadro.reservaid = reserva.id WHERE reserva.tipo = tipo_reserva.id AND evaluacion_cuadro.ultima = 1) AS total FROM tipo_reserva';
-   $rawData = Yii::$app->db->createCommand($sql)->queryAll();
+   $rawData = Yii::$app->db->createCommand($sql4)->queryAll();
    if($rawData)
    {
    $total_data = [];

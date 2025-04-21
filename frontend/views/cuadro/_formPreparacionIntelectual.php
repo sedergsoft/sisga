@@ -1,4 +1,6 @@
 <?php
+
+use common\widgets\Alert;
 use kartik\form\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\ArrayHelper;
