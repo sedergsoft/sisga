@@ -349,7 +349,8 @@ class UserController extends Controller
    
       public static function IsConnected($username)
     {
-       $user = User::findByUsername($username);
+       return false;
+        $user = User::findByUsername($username);
        if($user->rolid == 2)
        {
            return false;
