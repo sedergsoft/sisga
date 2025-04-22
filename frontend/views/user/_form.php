@@ -92,7 +92,7 @@ use backend\models\Rol;
                <td colspan="2">
              <?=                          
                      $form->field($model, 'direccionid')->widget(kartik\select2\Select2::className(),[
-                    'data'=> yii\helpers\ArrayHelper::map(frontend\models\Direccion::find()->all(), 'id', 'nombre'),
+                    'data'=> yii\helpers\ArrayHelper::map(frontend\models\Entidad::find()->all(), 'id', 'nombre'),
                     'pluginOptions'=>['placeholder'=>'Selecione la direcion del usuario..'
                         
                         ],

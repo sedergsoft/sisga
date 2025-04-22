@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use frontend\models\Cuadro;
@@ -50,7 +51,10 @@ use frontend\models\CuadroIngresosMonetarios;
 use frontend\models\PreparacionIntelectualIdiomas;
 use frontend\models\Idiomas;
 use frontend\models\MiitanciaPoliticCuadro;
+use kartik\form\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\web\Response;
 
 /**
  * CuadroController implements the CRUD actions for Cuadro model.
@@ -86,6 +90,10 @@ class CuadroController extends Controller
         $searchModel = new CuadroSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->andFilterWhere(['status'=>1]);
+        if(Yii::$app->user->identity->rolid != "2")
+        {
+            $dataProvider->query->andFilterWhere(['entidadid'=>Yii::$app->user->identity->direccionid])->all();
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -101,7 +109,7 @@ class CuadroController extends Controller
         $searchModel = new CuadroSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->andFilterWhere(['status'=>1])->andFilterWhere(['reserva_cuadro'=>1])->all();
-        if(Yii::$app->user->identity->rolid != "1")
+        if(Yii::$app->user->identity->rolid != "2")
         {
             $dataProvider->query->andFilterWhere(['entidadid'=>Yii::$app->user->identity->direccionid])->all();
         }
@@ -137,14 +145,9 @@ class CuadroController extends Controller
         $dataProviderlugaresResidencias = $searchModellugaresResidencias->search(Yii::$app->request->queryParams);
         $dataProviderlugaresResidencias->query->andFilterWhere(['cuadroid'=> $id]);
         
-<<<<<<< Updated upstream
-        $trayectoria = TrayectoriaEstudiantilController::findModel(['cuadroid'=>$id]);
-        
-=======
         $trayectoria = TrayectoriaEstudiantil::findOne(['cuadroid'=>$id]);
         $militanciaPolitica = MiitanciaPoliticCuadro::findOne(['cuadroid'=>$id]);
        // return print_r($militanciaPolitica);
->>>>>>> Stashed changes
         $searchModelEnfermedades = new \frontend\models\EnfermedadSaludSearch();
         $dataProviderEnfermedades = $searchModelEnfermedades->search(Yii::$app->request->queryParams);
         $dataProviderEnfermedades->query->andFilterWhere(['saludid'=>$this->findModel($id)->saludid]);
@@ -1641,6 +1644,7 @@ else {
               $model->fecha_inicio_cargo = date('Y-m-d');
               $model->ubicacion_tiempo_guerra = "sedergsoft";
               $model->saludid = 1;
+              $model->entidadid = Yii::$app->user->identity->direccionid;
               $imagenName = trim($model->personaCI.Yii::$app->security->generateRandomString());  //guarda el nombre de la bebida para luego renombrar la imagen
             $model->file = UploadedFile::getInstance($model,'foto');
             $model->file->saveAs('uploads/cuadros/fotos/'.$imagenName.'.'.$model->file->extension); //guarda la imagen en la ruta proporcionada

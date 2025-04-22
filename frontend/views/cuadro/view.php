@@ -3,12 +3,9 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use daxslab\thumbnailer\Thumbnailer;
-<<<<<<< Updated upstream
-=======
 use frontend\controllers\CuadroController;
 use frontend\models\LimitacionesSalud;
 use kartik\dropdown\DropdownX;
->>>>>>> Stashed changes
 use kartik\grid\GridView;
 use yii\helpers\Url;
 use yii\bootstrap\Alert;
@@ -231,49 +228,32 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Calle',
-<<<<<<< Updated upstream
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->calle,
-=======
                                     'labelColOptions'=>['style'=>'width:15%'],
                                     'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->calle:"",
->>>>>>> Stashed changes
                                          'displayOnly'=>true
                                     ],
                             
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Número',
-<<<<<<< Updated upstream
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->numero,
-                                    // 'valueColOptions'=>['style'=>'width:10%'],
-=======
                                     'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->numero:"",
                                     'labelColOptions'=>['style'=>'width:15%'],
->>>>>>> Stashed changes
                                    // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
                             [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Edificio',
-<<<<<<< Updated upstream
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->edif,
-=======
                                     'labelColOptions'=>['style'=>'width:15%'],
                                     'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->edif:'',
->>>>>>> Stashed changes
                                      // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
                              [
                                    'attribute'=>'lugaresResidencias',
                                     'label'=>'Apto.',
-<<<<<<< Updated upstream
-                                   'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->apto,
-=======
                                     'labelColOptions'=>['style'=>'width:15%'],
                                    'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->apto:'',
->>>>>>> Stashed changes
                                     // 'valueColOptions'=>['style'=>'width:10%'],
                                     'displayOnly'=>true
                                     ],
@@ -296,13 +276,8 @@ $this->params['tittle'][]= $this->title;
                                     [
                                     'attribute'=>'lugaresResidencias',
                                     'label'=>'Entre calle uno',
-<<<<<<< Updated upstream
-                                    'value'=>\frontend\controllers\CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_uno,
-                                    // 'valueColOptions'=>['style'=>'width:10%'],
-=======
                                     'value'=>CuadroController::ObtenerLugares($model->id)?CuadroController::ObtenerLugares($model->id)->direcciones->entre_calle_uno:'',
                                     'labelColOptions'=>['style'=>'width:15%'],
->>>>>>> Stashed changes
                                     'valueColOptions'=>['style'=>'width:15%'],
                                     'displayOnly'=>true
                                     ],

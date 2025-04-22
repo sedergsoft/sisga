@@ -366,8 +366,6 @@ $baseUrl = $asset->baseUrl;
              }
             if(Yii::$app->user->identity->rolid == "6")//menu que se muestra para el usuario Gestor de Cuadros
              {
-<<<<<<< Updated upstream
-=======
             $menuItems[] = ['label' => 'Mostrar ',
                             'items' =>[
                                   
@@ -376,7 +374,6 @@ $baseUrl = $asset->baseUrl;
                                // ['label' => 'Dirección de Economía, Contabilidad y Finanzas', 'url' => ['/indicadoresgestion/llenar','id'=>8]], 
                                // ['label' => 'Dirección Supervisión y Control Interno', 'url' => ['/indicadoresgestion/llenar','id'=>13]], 
                                 ]];
->>>>>>> Stashed changes
            /* $menuItems[] = ['label' => 'Llenar indicadores ',
                             'items' =>[
                                   

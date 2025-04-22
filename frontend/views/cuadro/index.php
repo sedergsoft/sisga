@@ -50,7 +50,7 @@ $this->params['tittle'][] = $this->title;
             [
             'attribute'=>'personaCI',
             'label' => 'Nombre',
-             'width' => '18%',   
+             'width' => '10%',   
             'value'=> function ($model)
              {
               return strtoupper($model->personaCI0->Nombre);
@@ -61,7 +61,7 @@ $this->params['tittle'][] = $this->title;
             [
             'attribute'=>'personaCI',
             'label' => 'Primer Apellido',
-                'width' => '18%',
+                'width' => '10%',
             'value'=> function ($model)
              {
               return strtoupper($model->personaCI0->primer_apellido);
@@ -71,7 +71,7 @@ $this->params['tittle'][] = $this->title;
             [
             'attribute'=>'personaCI',
             'label' => 'Segundo Apellido',
-                'width' => '18%',
+                'width' => '10%',
             'value'=> function ($model)
              {
               return strtoupper($model->personaCI0->segundo_apellido);
@@ -82,7 +82,7 @@ $this->params['tittle'][] = $this->title;
             [
             'attribute'=>'personaCI',
             'label' => 'NI',
-            'width' => '14%',
+            'width' => '10%',
             'value'=> function ($model)
              {
               return $model->personaCI0->CI;
@@ -92,7 +92,7 @@ $this->params['tittle'][] = $this->title;
             [
             'attribute'=>'id',
             'label' => 'última Evaluación',
-            'width' => '14%',
+            'width' => '10%',
             'value'=> function ($model)
              {
               if($evaluacion = frontend\models\EvaluacionCuadro::findOne(['cuadroid'=>$model->id,'ultima'=>1]))
@@ -140,7 +140,7 @@ $this->params['tittle'][] = $this->title;
             ],
            
             ['class' => 'yii\grid\ActionColumn',
-             // 'width' => '50px',  
+              //'label' => '50px',  
                 
                      'template' => '{view} {move} {reserva}',
                 'buttons' => [

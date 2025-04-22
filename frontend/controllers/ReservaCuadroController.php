@@ -155,8 +155,8 @@ class ReservaCuadroController extends Controller
     {
     $dataProvider->query->leftJoin( 'cuadro','cuadro.id = reserva_cuadro.cuadroid')->andFilterWhere(['cuadro.entidadid'=>Yii::$app->user->identity->direccionid])->all();
     }
-    return $this->render('composicion0', [
-        'searchModel' => $searchModel,X
+    return $this->render('composicion', [
+        'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
     ]);
     

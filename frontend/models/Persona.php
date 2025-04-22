@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use DateTime;
 use Yii;
 
 /**
@@ -113,4 +114,24 @@ class Persona extends \yii\db\ActiveRecord
     return $this->Nombre.' '.$this->primer_apellido.' '.$this->segundo_apellido;
    }
 
+   public function edad()
+   {
+    $fecha = $this->fechaNac();
+    $hoy = new DateTime();
+    $edad = $hoy->diff($fecha)->y;
+    return $edad;
+    
+   }
+   public function fechaNac()
+   {
+    $fecha_nac = substr($this->CI,0,6);
+    $anno_nac = substr($fecha_nac,0,2);
+    $mes_nac = substr($fecha_nac,2,2);
+    $dia_nac = substr($fecha_nac,4,2);
+    $anno_actual = date('Y');
+    $siglo=($anno_nac>substr($anno_actual,2,2))?19:20;
+    $fecha_completa = "{$siglo}{$anno_nac}-{$mes_nac}-{$dia_nac}";
+    $fecha_nac_com = new DateTime($fecha_completa);
+    return $fecha_nac_com;
+   }
 }

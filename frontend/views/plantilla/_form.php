@@ -19,7 +19,7 @@ use kartik\touchspin\TouchSpin;
          <div class="col-lg-12">
             
         <?= $form->field($model, 'empresaid')->widget(Select2::className(), [
-                     'data'=> ArrayHelper::map(frontend\models\Empresa::find()->asArray()->andFilterWhere(['not', ['id' => ArrayHelper::map(\frontend\models\Plantilla::find()->all(), 'id','empresaid')]])->all(), 'id', 'nombre'),
+                     'data'=> ArrayHelper::map(frontend\models\Entidad::find()->asArray()->andFilterWhere(['not', ['id' => ArrayHelper::map(\frontend\models\Plantilla::find()->all(), 'id','empresaid')]])->all(), 'id', 'nombre_corto'),
                     'pluginOptions'=>['placeholder'=>'Selecione la Empresa..'],
                    
                 ]) ?> 

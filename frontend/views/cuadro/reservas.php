@@ -92,6 +92,21 @@ $this->params['tittle'][] = $this->title;
            
             [
             'attribute'=>'personaCI',
+            'label' => 'Fecha Nac.',
+            'format'=>"raw",
+            
+                
+            'width' => '10%',
+            'value'=> function ($model)
+            {
+             
+                 return Yii::$app->formatter->asDate($model->personaCI0->fechaNac(),'long'); 
+              
+             }
+            
+            ],
+            [
+            'attribute'=>'personaCI',
             'label' => 'Edad',
             'format'=>"raw",
             
@@ -100,7 +115,7 @@ $this->params['tittle'][] = $this->title;
             'value'=> function ($model)
             {
              
-                 return  'Desarrollar funcion edad en model Persona'; 
+                 return  $model->personaCI0->edad(). ' años'; 
               
              }
             

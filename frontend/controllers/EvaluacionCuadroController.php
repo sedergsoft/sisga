@@ -377,35 +377,19 @@ h1',    // format content from your own css file if needed or use the
          $this->redirect(['site/login']);   
      }  
       $searchModel = new EvaluacionCuadroSearch();
-<<<<<<< Updated upstream
-      $id = 31;
-    $modelplantilla  = \frontend\models\Plantilla::find()->andWhere(['empresaid'=>$id])->one();
-          $sql = 'SELECT DISTINCT calificacion.calificacion as indicador,(SELECT COUNT(evaluacion_cuadro.resultado_evaluacion ) FROM evaluacion_cuadro WHERE evaluacion_cuadro.resultado_evaluacion = calificacion.id AND evaluacion_cuadro.ultima = 1) AS total FROM calificacion';
-=======
       if(Yii::$app->user->identity->rolid!=2)
       {
         $id = Yii::$app->user->identity->direccionid;
         $modelplantilla  = \frontend\models\Plantilla::findOne(['empresaid'=>$id]);
        // $modelplantilla  = \frontend\models\Plantilla::find()->andWhere(['empresaid'=>$id])->one();
         $sql = 'SELECT DISTINCT calificacion.calificacion as indicador,(SELECT COUNT(evaluacion_cuadro.resultado_evaluacion ) FROM evaluacion_cuadro INNER JOIN cuadro ON evaluacion_cuadro.cuadroid=cuadro.id  WHERE evaluacion_cuadro.resultado_evaluacion = calificacion.id AND evaluacion_cuadro.ultima = 1 AND cuadro.entidadid = '.$id.') AS total FROM calificacion';
->>>>>>> Stashed changes
     $rawcalificacion = Yii::$app->db->createCommand($sql)->queryAll();
     $sql = 'SELECT DISTINCT tipo_proyeccion.tipo as indicador,(SELECT COUNT(proyeccion.tipo_proyeccionid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_proyeccionid = tipo_proyeccion.id AND evaluacion_cuadro.ultima = 1) AS total FROM tipo_proyeccion';
     $rawProyeccion = Yii::$app->db->createCommand($sql)->queryAll();
-<<<<<<< Updated upstream
-   $sql = 'SELECT DISTINCT tipo_movimiento.tipo_movimiento as indicador,(SELECT COUNT(proyeccion.tipo_movimientoid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id WHERE proyeccion.tipo_movimientoid = tipo_movimiento.id AND evaluacion_cuadro.ultima = 1) AS total FROM tipo_movimiento';
-=======
     $sql = 'SELECT DISTINCT tipo_movimiento.tipo_movimiento as indicador,(SELECT COUNT(proyeccion.tipo_movimientoid ) FROM evaluacion_cuadro INNER JOIN proyeccion ON evaluacion_cuadro.proyeccionid = proyeccion.id INNER JOIN cuadro ON evaluacion_cuadro.cuadroid=cuadro.id WHERE proyeccion.tipo_movimientoid = tipo_movimiento.id AND evaluacion_cuadro.ultima = 1 AND cuadro.entidadid = '.$id.') AS total FROM tipo_movimiento';
->>>>>>> Stashed changes
     $rawmovimiento = Yii::$app->db->createCommand($sql)->queryAll();
     $sql = 'SELECT DISTINCT tipo_reserva.tipo as indicador,(SELECT COUNT(reserva.tipo ) FROM evaluacion_cuadro INNER JOIN reserva ON evaluacion_cuadro.reservaid = reserva.id WHERE reserva.tipo = tipo_reserva.id AND evaluacion_cuadro.ultima = 1) AS total FROM tipo_reserva';
     $reservaData = Yii::$app->db->createCommand($sql)->queryAll();
-<<<<<<< Updated upstream
- 
-   $result =  \yii\helpers\ArrayHelper::merge($rawcalificacion, $rawProyeccion);
-   $result =  \yii\helpers\ArrayHelper::merge($result, $rawmovimiento);
-   $result =  \yii\helpers\ArrayHelper::merge($result, $reservaData);
-=======
     $sql = 'SELECT COUNT(ec.cuadroid) AS evaluados 
     FROM evaluacion_cuadro ec 
     INNER JOIN cuadro c ON ec.cuadroid = c.id 
@@ -443,7 +427,6 @@ h1',    // format content from your own css file if needed or use the
     $result =  \yii\helpers\ArrayHelper::merge($rawcalificacion, $rawProyeccion);
     $result =  \yii\helpers\ArrayHelper::merge($result, $rawmovimiento);
     $result =  \yii\helpers\ArrayHelper::merge($result, $reservaData);
->>>>>>> Stashed changes
    
    
    $dataProvider =  new \yii\data\ArrayDataProvider(['allModels'=>$result, 'sort'=>['attributes'=>['indicador','total'],],]);
